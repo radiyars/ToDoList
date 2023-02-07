@@ -1,10 +1,11 @@
 import s from "./List.module.scss"
-import listSvg from '../../assets/img/list2.svg'
 
 export type ItemsType = {
 	color: string
 	title: string
 	active: boolean
+	img: string
+	isRemovable: boolean
 }
 
 type PropsType = {
@@ -15,12 +16,12 @@ type PropsType = {
 const List = (props: PropsType) => {
 	return (
 		< ul className={s.list} >
-			{props.items.map((e) => {
+			{props.items.map((e, index) => {
 				return (
-					<li className={e.active ? s.active : ''}>
+					<li key={index} className={e.active ? s.active : ''}>
 						<i>
 							{!e.color
-								? <img src={listSvg} alt='Меню'></img>
+								? <img src={e.img} alt='Меню'></img>
 								: <i className={s.badge} style={{ backgroundColor: e.color }}></i>}
 						</i>
 						<span>{e.title}</span>

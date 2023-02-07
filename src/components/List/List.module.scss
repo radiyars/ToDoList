@@ -7,19 +7,30 @@
 		padding: 10px 12px;
 		cursor: pointer;
 		margin-bottom: 5px;
+		font-size: 18px;
 	}
 
 	li:first-child{
 		margin-bottom: 30px;
-		font-size: 16px;
+		font-size: 20px;
+		font-weight: 500;
 	}
+
+	li:last-child{
+		margin-top: 30px;
+		opacity: 0.6;
+		&:hover{
+			opacity: 1;
+		}
+	}	
+
 
 	i{
 		// opacity: 0.5;	
 		display: inline-flex;
-		margin-right: 8px;
+		margin-right: 12px;
 		img{
-			width: 25px;
+			width: 30px;
 		}
 	}
 	
@@ -31,12 +42,12 @@
 	
 
 	.badge {
-		width: 10px;
-		height: 10px;
-		border-radius: 6px;
+		width: 15px;
+		height: 15px;
+		border-radius: 10px;
 		background-color: white;
 		position: relative;
-		left: 6px;
+		left: 7px;
 	}
 }
 
