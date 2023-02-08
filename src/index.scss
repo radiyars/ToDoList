@@ -7,7 +7,6 @@
 	// font-weight: 500;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	
 }
 
 .todo {
@@ -32,5 +31,35 @@
 
 	}
 			
+}
+
+.field{
+	background-color: #ffffff;
+	border: 1px solid #efefef;
+	box-sizing: border-box;
+	border-radius: 4px;
+	padding: 8px 12px;
+	width: 100%;
+	&:focus{
+		border-color: #dbdbdb;
+	}
+}
+
+
+.button{
+	background-color: #81b0b0;
+	border-radius: 4px;
+	color: #fff;
+	border: 0;
+	padding: 10px 20px;
+	cursor: pointer;
+
+	&:hover{
+		background-color: darken(#81b0b0, 6%);
+	}
+
+	&:active{
+		background-color: darken(#81b0b0, 12%);
+	}
 }
 
