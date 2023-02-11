@@ -1,6 +1,6 @@
 import Badge from "../Badge/Badge"
 
-import s from "./List.module.scss"
+import styles from "./List.module.scss"
 
 
 export type ItemsType = {
@@ -19,16 +19,18 @@ type PropsType = {
 
 const List = (props: PropsType) => {
 	return (
-		< ul className={s.list} onClick={props.onClick}>
-			{props.items.map((e, index) => {
+		< ul className={styles.list} onClick={props.onClick}>
+			{props.items.map((item, index) => {
 				return (
-					<li key={index} className={e.active ? s.active : ''}>
+					<li key={index} className={item.active ? styles.active : ''}>
 						<i>
-							{!e.color
-								? <img src={e.img} alt='Меню'></img>
-								: <Badge color={e.color} />}
+							{!item.color
+								? <img src={item.img} alt='Меню'></img>
+								: <div className={styles.badge}>
+									<Badge onClick={() => { }} color={item.color} className='' />
+								</div>}
 						</i>
-						<span>{e.title}</span>
+						<span>{item.title}</span>
 					</li>
 				)
 			}

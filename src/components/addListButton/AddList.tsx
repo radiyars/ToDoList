@@ -2,7 +2,6 @@ import { useState } from "react";
 import addSvg from '../../assets/img/add.svg';
 import List, { ItemsType } from "../List/List";
 import AddListForm from './AddListForm/AddListForm';
-import s from './AddList.module.scss'
 
 type ColorType = {
 	id: number
@@ -19,12 +18,13 @@ const buttonAdd: Array<ItemsType> = [
 ]
 
 const AddList = (props: PropsType) => {
-	const [visibleAddListForm, setVisibleAddListForm] = useState(true);
+	const [visibleAddListForm, setVisibleAddListForm] = useState(false)
+	const [selectedColor, setSelectedColor] = useState(props.colors[0].id)
 
 	return (
 		<div>
 			<List items={buttonAdd} isRemovable={false} onClick={() => { setVisibleAddListForm(true) }} />
-			{visibleAddListForm && <AddListForm colors={props.colors} />}
+			{visibleAddListForm && <AddListForm selectedColor={selectedColor} setSelectedColor={setSelectedColor} setVisibleAddListForm={setVisibleAddListForm} colors={props.colors} />}
 		</div >
 	)
 }
