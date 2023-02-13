@@ -9,18 +9,21 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+
 .todo {
 	// position:absolute;
 	left: 50%;
 	top: 50%;
 	width: 1000px;
-	height: 600px;
+	min-height: 600px;
 	// transform: translate(-50%, -50%);
 	margin: 100px auto 0 auto;
 	box-shadow: 1px 2px 20px #f3f3f3;
 	border-radius: 10px;
 	border: 1px solid #f1f1f1;
-	font-size: 14px;
+	font-size: 17px;
+	// box-sizing: content-box;
+
 
 	&__sidebar{
 		background-color: #8BD2CC;
@@ -30,37 +33,5 @@
 		padding: 60px 20px;
 
 	}
-			
+
 }
-
-.field{
-	background-color: #ffffff;
-	border: 1px solid #efefef;
-	box-sizing: border-box;
-	border-radius: 4px;
-	padding: 8px 12px;
-	width: 100%;
-	&:focus{
-		border-color: #dbdbdb;
-	}
-}
-
-
-.button{
-	background-color: #81b0b0;
-	border-radius: 4px;
-	color: #fff;
-	border: 0;
-	padding: 10px 20px;
-	cursor: pointer;
-
-	&:hover{
-		background-color: darken(#81b0b0, 6%);
-	}
-
-	&:active{
-		background-color: darken(#81b0b0, 12%);
-	}
-}
-
-

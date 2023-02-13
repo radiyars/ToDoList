@@ -1,0 +1,89 @@
+.addListForm{
+	width: 500px;
+	// height: 156px;
+	background-color: #ffffff;
+	box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.05);
+	border-radius: 10px;
+	padding: 18px;
+	box-sizing: border-box;
+	position: relative;
+	top: -35px;
+	left: 12px;
+
+
+	&__closeSvg{
+		width: 35px;
+		height: 35px;
+		position: absolute;
+		right: -17px;
+		top: -17px;
+		cursor: pointer;
+		fill: #828282;
+
+		&:hover{
+			fill: darken(#828282, 20%);
+		}
+	}
+	
+
+	&__field{
+		width: 100%;
+		margin-bottom: 15px;
+		background-color: #ffffff;
+		border: 1px solid #efefef;
+		box-sizing: border-box;
+		border-radius: 4px;
+		padding: 8px 12px;
+		width: 100%;
+		font-size: 17px;
+		&:focus{
+			border-color: #dbdbdb;
+		}
+	}
+
+
+	&__colors {
+		margin-bottom: 15px;
+		height: 30px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		
+		.active{
+			border: 3px solid #525252;
+		}
+
+		.bigBadge{
+			width: 25px;
+			height: 25px;
+
+			&:hover{
+				width: 30px;
+				height: 30px;
+			}
+		}
+	}
+
+
+	&__button{
+		width: 100%;
+		background-color: #292E33;
+		border-radius: 4px;
+		color: #fff;
+		border: 0;
+		padding: 10px 20px;
+		cursor: pointer;
+		font-size: 17px;
+		
+	
+		&:hover{
+			background-color: lighten(#292E33, 6%);
+		}
+	
+		&:active{
+			background-color: lighten(#292E33, 12%);
+		}
+	}
+
+} 
+

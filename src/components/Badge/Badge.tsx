@@ -1,6 +1,5 @@
 
 import styles from './Badge.module.scss'
-import classNames from 'classnames'
 
 type PropsType = {
 	color: string
@@ -10,8 +9,7 @@ type PropsType = {
 
 const Badge = (props: PropsType) => <i
 	onClick={props.onClick}
-	className={classNames(styles.badge, props.className)}
-	// className={`${styles.badge} ${props.bigSize && styles.bigSize} ${props.active && styles.active}`}
+	className={`${styles.badge} ${props.className}`}
 	style={{ backgroundColor: props.color }}></i>
 
 export default Badge
