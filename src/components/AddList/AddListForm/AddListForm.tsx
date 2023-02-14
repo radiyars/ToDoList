@@ -26,21 +26,27 @@ const AddListForm = (props: PropsType) => {
 	const [listName, setListName] = useState('')
 
 
-	const addNewList = () => {
-		if (!!listName) {
+	const clearAddListForm = () => {
+		setListName('')
+		setSelectedColor(DB.colors[0].id)
+		props.setVisibleAddListForm(false)
+	}
 
+	const addNewList = () => {
+		clearAddListForm()
+		if (!!listName) {
 			props.setLists([...props.lists, {
-				id: props.lists[props.lists.length - 1].id,
+				id: props.lists[props.lists.length - 1].id + 1,
 				name: listName,
 				colorId: selectedColor,
-				colorHex: DB.colors[selectedColor - 1].hex,
+				colorHex: DB.colors.filter(c => c.id === selectedColor)[0].hex,
 			}])
 		}
 	}
 
 	return (
 		<div className={styles.addListForm}>
-			<CloseSvg onClick={() => { props.setVisibleAddListForm(false) }} className={styles.addListForm__closeSvg} />
+			<CloseSvg onClick={clearAddListForm} className={styles.addListForm__closeSvg} />
 			<input className={styles.addListForm__field} type="text" value={listName} placeholder="Название списка" onChange={(e) => setListName(e.target.value)} />
 			<div className={styles.addListForm__colors}>
 				{

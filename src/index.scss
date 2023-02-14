@@ -12,6 +12,7 @@
 
 .todo {
 	// position:absolute;
+	display: flex;
 	left: 50%;
 	top: 50%;
 	width: 1000px;
@@ -34,4 +35,9 @@
 
 	}
 
+	&__tasks{
+		flex:1;
+		padding: 60px;
+	}
 }
+

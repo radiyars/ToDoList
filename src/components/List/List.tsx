@@ -1,7 +1,7 @@
 import { ListType } from "../../App"
+import { ReactComponent as RemoveSvg } from "../../assets/img/close.svg"
 import Badge from "../Badge/Badge"
 import styles from "./List.module.scss"
-
 
 
 
@@ -13,10 +13,21 @@ type PropsType = {
 	isRemovable: boolean
 	isHoverOpacityEffect: boolean // opacity <> 1 при наведении на элемент
 	onClick: () => void
+	setLists: (lists: Array<ListType>) => void
 }
 
 
 const List = (props: PropsType) => {
+
+	const removeList = (id: number) => {
+		if (window.confirm('Вы действительно хотите удалить список?')) {
+			if (!!props.lists) {
+				let na = props.lists.filter(item => item.id != id)
+				props.setLists(na)
+			}
+		}
+	}
+
 	return (
 		< ul className={styles.list} onClick={props.onClick}>
 			{!!props.lists ? props.lists.map((item, index) => {
@@ -30,6 +41,7 @@ const List = (props: PropsType) => {
 							</div>}
 						</i>
 						<span>{item.name}</span>
+						{props.isRemovable && <RemoveSvg className={styles.list__remove} onClick={() => { removeList(item.id) }} />}
 					</li>
 				)
 			}

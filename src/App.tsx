@@ -1,11 +1,9 @@
 import List from './components/List/List';
-
 import listSvg from './assets/img/list2.svg';
 import AddList from './components/AddList/AddList';
-
-
-import DB from './assets/db.json';
 import { useState } from 'react';
+import DB from './assets/db.json';
+import Tasks from './components/Tasks/Tasks';
 
 
 export type ListType = {
@@ -14,7 +12,6 @@ export type ListType = {
 	colorId: number
 	colorHex?: string
 }
-
 type TaskType = {
 	id: number
 	listId: number
@@ -33,32 +30,24 @@ export type StateType = {
 }
 
 
-
 function App() {
 
 	const state: StateType = DB
-
 	state.lists.map((i) => {
 		i.colorHex = state.colors.filter(color => color.id === i.colorId)[0].hex;
 	})
 
-	console.log(state);
-
-
 	const [lists, setLists] = useState(state.lists);
-
-	console.log(lists);
-
 
 	return (
 		<div className="todo">
 			<div className="todo__sidebar">
-				<List lists={null} title='Все задачи' img={listSvg} isRemovable={false} onClick={() => { }} isHoverOpacityEffect={false} />
-				<List lists={lists} title='' img='' isRemovable={true} onClick={() => { }} isHoverOpacityEffect={false} />
+				<List setLists={() => { }} lists={null} title='Все задачи' img={listSvg} isRemovable={false} onClick={() => { }} isHoverOpacityEffect={false} />
+				<List setLists={setLists} lists={lists} title='' img='' isRemovable={true} onClick={() => { }} isHoverOpacityEffect={false} />
 				<AddList lists={lists} setLists={setLists} />
 			</div>
 			<div className="todo__tasks">
-
+				<Tasks />
 			</div>
 		</div>
 	);

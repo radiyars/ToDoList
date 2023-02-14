@@ -19,6 +19,7 @@ const AddList = (props: PropsType) => {
 	return (
 		<div>
 			<List
+				setLists={() => { }}
 				lists={null}
 				title={'Добавить список'}
 				img={addSvg}
