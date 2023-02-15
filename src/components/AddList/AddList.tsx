@@ -1,16 +1,17 @@
 import { useState } from "react";
+import { ColorTypeArray, ListTypeArray } from "../../App";
 import addSvg from '../../assets/img/add.svg';
 import List from "../List/List";
 import AddListForm from './AddListForm/AddListForm';
 
-import { ListType } from "../../App";
-import DB from '../../assets/db.json';
+
 
 type PropsType = {
-	lists: Array<ListType>
-	setLists: (lists: Array<ListType>) => void
-}
+	lists: ListTypeArray | null
+	colors: ColorTypeArray | null
+	onAddList: (bool: boolean) => void
 
+}
 
 
 const AddList = (props: PropsType) => {
@@ -19,7 +20,7 @@ const AddList = (props: PropsType) => {
 	return (
 		<div>
 			<List
-				setLists={() => { }}
+				onRemove={() => { }}
 				lists={null}
 				title={'Добавить список'}
 				img={addSvg}
@@ -29,12 +30,12 @@ const AddList = (props: PropsType) => {
 				}}
 				isHoverOpacityEffect={true}
 			/>
+
 			{visibleAddListForm &&
 				<AddListForm
-					lists={props.lists}
-					setLists={props.setLists}
+					onAddList={props.onAddList}
 					setVisibleAddListForm={setVisibleAddListForm}
-					colors={DB.colors}
+					colors={props.colors}
 				/>}
 		</div >
 	)

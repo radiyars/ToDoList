@@ -1,32 +1,36 @@
-import { ListType } from "../../App"
-import { ReactComponent as RemoveSvg } from "../../assets/img/close.svg"
-import Badge from "../Badge/Badge"
-import styles from "./List.module.scss"
+import { ListType, ListTypeArray } from "../../App";
+import { ReactComponent as RemoveSvg } from "../../assets/img/close.svg";
+import Badge from "../Badge/Badge";
+import styles from "./List.module.scss";
+import axios from 'axios';
 
 
 
 type PropsType = {
 
-	lists: Array<ListType> | null
+	lists: ListTypeArray | null
 	title: string
 	img: string
 	isRemovable: boolean
-	isHoverOpacityEffect: boolean // opacity <> 1 при наведении на элемент
+	isHoverOpacityEffect: boolean // opacity != 1 при наведении на элемент
 	onClick: () => void
-	setLists: (lists: Array<ListType>) => void
+	onRemove: (bool: boolean) => void
 }
 
 
 const List = (props: PropsType) => {
 
+	//  Удаляем лист из списка
 	const removeList = (id: number) => {
 		if (window.confirm('Вы действительно хотите удалить список?')) {
-			if (!!props.lists) {
-				let na = props.lists.filter(item => item.id != id)
-				props.setLists(na)
-			}
+			axios
+				.delete('http://localhost:3001/lists/' + id)
+				.then(() => {
+					props.onRemove(true)
+				})
 		}
 	}
+
 
 	return (
 		< ul className={styles.list} onClick={props.onClick}>
@@ -37,7 +41,7 @@ const List = (props: PropsType) => {
 						className={`${props.isHoverOpacityEffect && styles.list_opacityEffect}`}>
 						<i>
 							{<div className={styles.list__badge}>
-								<Badge onClick={() => { }} color={!!item.colorHex ? item.colorHex : ''} className='' />
+								<Badge onClick={() => { }} color={!!item.color ? item.color.hex : ''} className='' />
 							</div>}
 						</i>
 						<span>{item.name}</span>
