@@ -1,21 +1,69 @@
-import styles from './Tasks.module.scss'
-import penSvg from '../../assets/img/pen.svg'
-import { ReactComponent as CheckSvg } from '../../assets/img/check.svg'
-import { ListType } from '../../App'
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { ListType } from '../../App';
+import { ReactComponent as CheckSvg } from '../../assets/img/check.svg';
+import AddTasks from './AddTask/AddTasks';
+import styles from './Tasks.module.scss';
+
 
 type PropsType = {
-	list: ListType
+	list: ListType | null
+	onUpdateLists: (bool: boolean) => void
 }
 
 const Tasks = (props: PropsType) => {
 
+	const [editMode, setEditMode] = useState(false)
+	const [newListName, setNewListName] = useState('')
+
+	// Обновляем название листа для нового листа
+	useEffect(() => {
+		if (props.list) {
+			setNewListName(props.list.name)
+		}
+	}, [props.list])
+
+
+	const EditListName = () => {
+		setEditMode(false)
+		if (newListName) {
+			if (props.list) {
+				axios
+					.patch('http://localhost:3001/lists/' + props.list.id, {
+						name: newListName
+					})
+					.then(() => {
+						props.onUpdateLists(true)
+					})
+					.catch(() => { alert('Не удалось изменить название списка!') })
+			}
+		}
+	}
+
+
 	return (
+
 		<div className={styles.tasks}>
-			<h2 className={styles.tasks__title}>{props.list.name}<img src={penSvg} alt='edit' className={styles.tasks__pen} /></h2>
+
+			{!editMode &&
+				<span className={styles.tasks__title} onClick={() => setEditMode(true)} >
+					{props.list && props.list.name}
+				</span>
+			}
+
+			{editMode &&
+				<input className={styles.tasks__title}
+					autoFocus={true}
+					value={newListName}
+					placeholder="Название списка"
+					onChange={(e) => setNewListName(e.target.value)}
+					onBlur={EditListName} />
+			}
 
 			<div className={styles.tasks__items}>
-				{
-					props.list.tasks.map(task => (
+				{props.list && !props.list.tasks.length && <h2>Задачи отсутствуют</h2>}
+				{props.list && props.list.tasks.map(
+					task => (
 						<div key={task.id} className={styles.tasks__items_row}>
 							<div className={styles.checkbox}>
 								<input id={`task-${task.id}`} type='checkbox' />
@@ -24,16 +72,10 @@ const Tasks = (props: PropsType) => {
 							<input readOnly value={task.text}></input>
 						</div>
 					)
-					)
-				}
-
-
-
-
-
-
-
-
+				)}
+				<div className={styles.tasks__form}>
+					<AddTasks />
+				</div>
 			</div>
 		</div >
 	)

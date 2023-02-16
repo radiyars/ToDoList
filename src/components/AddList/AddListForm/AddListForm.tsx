@@ -50,18 +50,10 @@ const AddListForm = (props: PropsType) => {
 			.post('http://localhost:3001/lists',
 				// Id добавляется автотомаически в json-server
 				{ name: inputValue, colorId: selectedColor })
-			.then(({ data }) => { // после удачного запроса выполняем следующие операции:
+			.then(() => { // после удачного запроса выполняем следующие операции:
 				// После того, как добавили в БД новый лист,
 				// обновляем наш lists
-				props.onAddList(true
-					// {
-					// 	...data,
-					// 	color: {
-					// 		hex: props.colors.filter(c => c.id === selectedColor)[0].hex,
-					// 		name: props.colors.filter(c => c.id === selectedColor)[0].name
-					// 	}
-					// }
-				)
+				props.onAddList(true)
 				onClose()
 
 			})

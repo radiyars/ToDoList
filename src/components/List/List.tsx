@@ -3,6 +3,7 @@ import { ReactComponent as RemoveSvg } from "../../assets/img/close.svg";
 import Badge from "../Badge/Badge";
 import styles from "./List.module.scss";
 import axios from 'axios';
+import classNames from "classnames";
 
 
 
@@ -11,10 +12,11 @@ type PropsType = {
 	lists: ListTypeArray | null
 	title: string
 	img: string
-	isRemovable: boolean
-	isHoverOpacityEffect: boolean // opacity != 1 при наведении на элемент
+	isRemovableItem: boolean
+	selectedListId: number | null
 	onClick: () => void
-	onRemove: (bool: boolean) => void
+	onClickItem: (item: number | null) => void
+	onUpdateLists: (bool: boolean) => void
 }
 
 
@@ -26,7 +28,7 @@ const List = (props: PropsType) => {
 			axios
 				.delete('http://localhost:3001/lists/' + id)
 				.then(() => {
-					props.onRemove(true)
+					props.onUpdateLists(true)
 				})
 		}
 	}
@@ -37,22 +39,21 @@ const List = (props: PropsType) => {
 			{!!props.lists ? props.lists.map((item, index) => {
 				return (
 					<li key={index}
-						// className={`${item.active && styles.list_active} ${props.isHoverOpacityEffect && styles.list_opacityEffect}`}>
-						className={`${props.isHoverOpacityEffect && styles.list_opacityEffect}`}>
+						onClick={() => props.onClickItem(item.id)}
+						className={classNames({ [styles.list_active]: props.selectedListId && props.selectedListId === item.id })}>
 						<i>
 							{<div className={styles.list__badge}>
 								<Badge onClick={() => { }} color={!!item.color ? item.color.hex : ''} className='' />
 							</div>}
 						</i>
-						<span>{item.name}</span>
-						{props.isRemovable && <RemoveSvg className={styles.list__remove} onClick={() => { removeList(item.id) }} />}
+						<span>{item.name}{item.tasks.length > 0 && ` (${item.tasks.length})`}</span>
+						{props.isRemovableItem && <RemoveSvg className={styles.list__remove} onClick={() => { removeList(item.id) }} />}
 					</li>
 				)
 			}
 			) :
 				<li key={0}
-					// className={`${item.active && styles.list_active} ${props.isHoverOpacityEffect && styles.list_opacityEffect}`}>
-					className={`${props.isHoverOpacityEffect && styles.list_opacityEffect}`}>
+					className={``}>
 					<i>	{<img src={props.img} alt='Меню'></img>}</i>
 					<span>{props.title}</span>
 				</li>

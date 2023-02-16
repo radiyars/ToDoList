@@ -39,9 +39,10 @@ export type StateType = {
 
 function App() {
 
-	const [isNewLists, setIsNewLists] = useState(false) // Новый список листов
+	const [isListsChanged, setIsListsChanged] = useState(false)  // Новый список листов
 	const [lists, setLists] = useState<ListTypeArray | null>(null) // Список листов
 	const [colors, setColors] = useState<ColorTypeArray | null>(null) // список цветов
+	const [selectedListId, setSelectedListId] = useState<number | null>(null) // Выбранный лист
 
 	// Получаем данные о цветах только при первом рендеринге
 	useEffect(() => {
@@ -50,31 +51,53 @@ function App() {
 		})
 	}, [])
 
+
 	// Следим за изменением листов
 	useEffect(() => {
-		setIsNewLists(false)
 		axios.get('http://localhost:3001/lists?_expand=color&_embed=tasks').then(({ data }) => {
 			setLists(data)
 		})
-	}, [isNewLists])
+		setIsListsChanged(false)
+
+	}, [isListsChanged])
 
 
-	// const onAddList = (obj: ListType) => {
-	// 	if (!!lists) {
-	// 		setLists([...lists, obj])
-	// 	}
-	// };
+	const EditListName = (id: number | null, name: string) => {
+		console.log(id, name);
 
+	}
 
 	return (
 		<div className="todo">
 			<div className="todo__sidebar">
-				<List onRemove={() => { }} lists={null} title='Все задачи' img={listSvg} isRemovable={false} onClick={() => { }} isHoverOpacityEffect={false} />
-				<List onRemove={setIsNewLists} lists={lists} title='' img='' isRemovable={true} onClick={() => { }} isHoverOpacityEffect={false} />
-				<AddList lists={lists} colors={colors} onAddList={setIsNewLists} />
+				<List
+					lists={null}
+					title='Все задачи'
+					img={listSvg}
+					isRemovableItem={false}
+					selectedListId={selectedListId}
+					onClick={() => { }}
+					onClickItem={() => { }}
+					onUpdateLists={() => { }} />
+				<List
+					lists={lists}
+					title=''
+					img=''
+					isRemovableItem={true}
+					selectedListId={selectedListId}
+					onClick={() => { }}
+					onClickItem={setSelectedListId}
+					onUpdateLists={setIsListsChanged} />
+				<AddList
+					lists={lists}
+					colors={colors}
+					onAddList={setIsListsChanged} />
 			</div>
 			<div className="todo__tasks">
-				{lists && <Tasks list={lists[0]} />}
+				{lists && selectedListId &&
+					<Tasks
+						list={lists.find(i => i.id === selectedListId) || null}
+						onUpdateLists={setIsListsChanged} />}
 			</div>
 		</div>
 	);

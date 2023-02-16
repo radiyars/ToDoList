@@ -5,6 +5,7 @@
 		line-height: 39px;
 		color: #111111;
 		padding-bottom: 20px;
+		border: 0;
 		border-bottom: 1px solid #a2a2a2;
 	
 
@@ -30,6 +31,17 @@
 
 	&__items{
 		margin-top: 30px;
+
+		h2{
+			font-weight: 32px;
+			font-size: 22px;
+			color:#c9d1d3;
+			text-align: center;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+		}
+
 		&_row{
 			display: flex;
 			align-items: center;
@@ -101,4 +113,9 @@
 			}
 		}
  	}
+
+	&__form{
+		margin-left: -2px;
+		padding-top: 20px;
+	}
 }

@@ -11,11 +11,6 @@
       "colorId": 3
     },
     {
-      "id": 4,
-      "name": "Книги",
-      "colorId": 2
-    },
-    {
       "id": 5,
       "name": "Личное",
       "colorId": 1
@@ -26,24 +21,19 @@
       "colorId": 3
     },
     {
-      "name": "устроиться на работу",
-      "colorId": 8,
+      "name": "asdfasdf",
+      "colorId": 1,
       "id": 7
     },
     {
-      "name": "кажется разобрался",
+      "name": "cvbcb",
       "colorId": 1,
       "id": 8
     },
     {
-      "name": "йукйцку",
-      "colorId": 3,
+      "name": "sdfsf",
+      "colorId": 1,
       "id": 9
-    },
-    {
-      "name": "ывапвыапва",
-      "colorId": 6,
-      "id": 10
     }
   ],
   "tasks": [
@@ -76,12 +66,6 @@
       "text": "123",
       "completed": true,
       "id": 5
-    },
-    {
-      "listId": 4,
-      "text": "Купить 1984!",
-      "completed": true,
-      "id": 10
     },
     {
       "listId": 2,

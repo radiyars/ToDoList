@@ -20,15 +20,14 @@ const AddList = (props: PropsType) => {
 	return (
 		<div>
 			<List
-				onRemove={() => { }}
 				lists={null}
 				title={'Добавить список'}
 				img={addSvg}
-				isRemovable={false}
-				onClick={() => {
-					setVisibleAddListForm(true)
-				}}
-				isHoverOpacityEffect={true}
+				isRemovableItem={false}
+				selectedListId={null}
+				onClick={() => setVisibleAddListForm(true)}
+				onClickItem={() => { }}
+				onUpdateLists={() => { }}
 			/>
 
 			{visibleAddListForm &&
