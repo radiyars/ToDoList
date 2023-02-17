@@ -14,6 +14,7 @@ type PropsType = {
 	img: string
 	isRemovableItem: boolean
 	selectedListId: number | null
+	active: boolean
 	onClick: () => void
 	onClickItem: (item: number | null) => void
 	onUpdateLists: (bool: boolean) => void
@@ -24,13 +25,11 @@ const List = (props: PropsType) => {
 
 	//  Удаляем лист из списка
 	const removeList = (id: number) => {
-		if (window.confirm('Вы действительно хотите удалить список?')) {
-			axios
-				.delete('http://localhost:3001/lists/' + id)
-				.then(() => {
-					props.onUpdateLists(true)
-				})
-		}
+		axios
+			.delete('http://localhost:3001/lists/' + id)
+			.then(() => {
+				props.onUpdateLists(true)
+			})
 	}
 
 
@@ -40,7 +39,7 @@ const List = (props: PropsType) => {
 				return (
 					<li key={index}
 						onClick={() => props.onClickItem(item.id)}
-						className={classNames({ [styles.list_active]: props.selectedListId && props.selectedListId === item.id })}>
+						className={classNames({ [styles.active]: props.active ? '' : props.selectedListId === item.id })}>
 						<i>
 							{<div className={styles.list__badge}>
 								<Badge onClick={() => { }} color={!!item.color ? item.color.hex : ''} className='' />
@@ -53,7 +52,7 @@ const List = (props: PropsType) => {
 			}
 			) :
 				<li key={0}
-					className={``}>
+					className={props.active ? styles.active : ''}>
 					<i>	{<img src={props.img} alt='Меню'></img>}</i>
 					<span>{props.title}</span>
 				</li>

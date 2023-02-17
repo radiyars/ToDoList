@@ -25,6 +25,7 @@ const AddList = (props: PropsType) => {
 				img={addSvg}
 				isRemovableItem={false}
 				selectedListId={null}
+				active={false}
 				onClick={() => setVisibleAddListForm(true)}
 				onClickItem={() => { }}
 				onUpdateLists={() => { }}

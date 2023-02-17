@@ -57,6 +57,9 @@ const AddListForm = (props: PropsType) => {
 				onClose()
 
 			})
+			.catch(() => {
+				alert('Ошибка при добавлении списка!')
+			})
 			.finally(() => { // При любом (удачном или неудачном) завершении запроса считаем что "Добавление завершено"
 				setIsLoading(false)
 			})
@@ -66,7 +69,7 @@ const AddListForm = (props: PropsType) => {
 	return (
 		<div className={styles.addListForm}>
 			<CloseSvg onClick={onClose} className={styles.addListForm__closeSvg} />
-			<input className={styles.addListForm__field} type="text" value={inputValue} placeholder="Название списка" onChange={(e) => setListName(e.target.value)} />
+			<input className={`field`} type="text" value={inputValue} placeholder="Название списка" onChange={(e) => setListName(e.target.value)} />
 			<div className={styles.addListForm__colors}>
 				{!!props.colors &&
 					props.colors.map(item => (
@@ -78,7 +81,10 @@ const AddListForm = (props: PropsType) => {
 					))
 				}
 			</div>
-			<button className={`button ${styles.addListForm__button}`} onClick={addNewList}>
+			<button
+				className={`button`}
+				disabled={isLoading}
+				onClick={addNewList}>
 				{isLoading ? 'Добавление...' : 'Добавить'}
 			</button>
 		</div >

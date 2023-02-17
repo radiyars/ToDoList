@@ -2,8 +2,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { ListType } from '../../App';
 import { ReactComponent as CheckSvg } from '../../assets/img/check.svg';
-import AddTasks from './AddTask/AddTasks';
 import styles from './Tasks.module.scss';
+import AddTask from './AddTask/AddTask';
 
 
 type PropsType = {
@@ -22,7 +22,6 @@ const Tasks = (props: PropsType) => {
 			setNewListName(props.list.name)
 		}
 	}, [props.list])
-
 
 	const EditListName = () => {
 		setEditMode(false)
@@ -74,7 +73,7 @@ const Tasks = (props: PropsType) => {
 					)
 				)}
 				<div className={styles.tasks__form}>
-					<AddTasks />
+					<AddTask list={props.list} onUpdateLists={props.onUpdateLists} />
 				</div>
 			</div>
 		</div >

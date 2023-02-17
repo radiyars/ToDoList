@@ -43,6 +43,7 @@ function App() {
 	const [lists, setLists] = useState<ListTypeArray | null>(null) // Список листов
 	const [colors, setColors] = useState<ColorTypeArray | null>(null) // список цветов
 	const [selectedListId, setSelectedListId] = useState<number | null>(null) // Выбранный лист
+	const [active, setActive] = useState(false)
 
 	// Получаем данные о цветах только при первом рендеринге
 	useEffect(() => {
@@ -62,9 +63,9 @@ function App() {
 	}, [isListsChanged])
 
 
-	const EditListName = (id: number | null, name: string) => {
-		console.log(id, name);
-
+	const chooseActive = (id: number | null) => {
+		setSelectedListId(id)
+		setActive(false)
 	}
 
 	return (
@@ -76,7 +77,8 @@ function App() {
 					img={listSvg}
 					isRemovableItem={false}
 					selectedListId={selectedListId}
-					onClick={() => { }}
+					active={active}
+					onClick={() => { setActive(true) }}
 					onClickItem={() => { }}
 					onUpdateLists={() => { }} />
 				<List
@@ -85,8 +87,9 @@ function App() {
 					img=''
 					isRemovableItem={true}
 					selectedListId={selectedListId}
+					active={active}
 					onClick={() => { }}
-					onClickItem={setSelectedListId}
+					onClickItem={chooseActive}
 					onUpdateLists={setIsListsChanged} />
 				<AddList
 					lists={lists}
