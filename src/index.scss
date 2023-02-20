@@ -17,6 +17,8 @@
 	top: 50%;
 	width: 1000px;
 	min-height: 600px;
+	// width: calc(100vw-200px);
+	// height: calc(100vh-100px);
 	// transform: translate(-50%, -50%);
 	margin: 100px auto;
 	box-shadow: 1px 2px 20px #f3f3f3;
@@ -39,6 +41,7 @@
 	&__tasks{
 		flex:1;
 		padding: 60px;
+		// overflow: auto;
 	}
 }
 

@@ -2,13 +2,16 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { ListType } from '../../App';
 import { ReactComponent as CheckSvg } from '../../assets/img/check.svg';
-import styles from './Tasks.module.scss';
 import AddTask from './AddTask/AddTask';
+import Task from './Task/Task';
+import styles from './Tasks.module.scss';
 
 
 type PropsType = {
 	list: ListType | null
 	onUpdateLists: (bool: boolean) => void
+	withoutEmpty: boolean
+	key: number
 }
 
 const Tasks = (props: PropsType) => {
@@ -45,7 +48,7 @@ const Tasks = (props: PropsType) => {
 		<div className={styles.tasks}>
 
 			{!editMode &&
-				<span className={styles.tasks__title} onClick={() => setEditMode(true)} >
+				<span className={styles.tasks__title} style={{ color: props.list ? props.list.color.hex : 'black' }} onClick={() => setEditMode(true)} >
 					{props.list && props.list.name}
 				</span>
 			}
@@ -60,22 +63,16 @@ const Tasks = (props: PropsType) => {
 			}
 
 			<div className={styles.tasks__items}>
-				{props.list && !props.list.tasks.length && <h2>Задачи отсутствуют</h2>}
+				{!props.withoutEmpty && props.list && !props.list.tasks.length && <h2>Задачи отсутствуют</h2>}
 				{props.list && props.list.tasks.map(
 					task => (
-						<div key={task.id} className={styles.tasks__items_row}>
-							<div className={styles.checkbox}>
-								<input id={`task-${task.id}`} type='checkbox' />
-								<label htmlFor={`task-${task.id}`}><CheckSvg className={styles.checkSvg} /></label>
-							</div>
-							<input readOnly value={task.text}></input>
-						</div>
+						<Task task={task} key={task.id} onUpdateLists={props.onUpdateLists} />
 					)
 				)}
 				<div className={styles.tasks__form}>
 					<AddTask list={props.list} onUpdateLists={props.onUpdateLists} />
 				</div>
-			</div>
+			</div >
 		</div >
 	)
 }

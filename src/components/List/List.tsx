@@ -52,6 +52,7 @@ const List = (props: PropsType) => {
 			}
 			) :
 				<li key={0}
+					onClick={() => props.onClickItem(0)}
 					className={props.active ? styles.active : ''}>
 					<i>	{<img src={props.img} alt='Меню'></img>}</i>
 					<span>{props.title}</span>

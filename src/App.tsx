@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import listSvg from './assets/img/list2.svg';
 import AddList from './components/AddList/AddList';
 import List from './components/List/List';
@@ -15,7 +16,7 @@ export type ListType = {
 }
 export type ListTypeArray = Array<ListType>
 
-type TaskType = {
+export type TaskType = {
 	id: number
 	listId: number
 	text: string
@@ -44,6 +45,8 @@ function App() {
 	const [colors, setColors] = useState<ColorTypeArray | null>(null) // список цветов
 	const [selectedListId, setSelectedListId] = useState<number | null>(null) // Выбранный лист
 	const [active, setActive] = useState(false)
+	let navigate = useNavigate()
+
 
 	// Получаем данные о цветах только при первом рендеринге
 	useEffect(() => {
@@ -63,9 +66,17 @@ function App() {
 	}, [isListsChanged])
 
 
+	let pathname = useLocation().pathname;
+	useEffect(() => {
+		const listId = pathname.split('lists/')[1]
+		setSelectedListId(+listId)
+	}, [pathname, lists])
+
+
 	const chooseActive = (id: number | null) => {
 		setSelectedListId(id)
 		setActive(false)
+		navigate(`/lists/${id}`)
 	}
 
 	return (
@@ -79,7 +90,8 @@ function App() {
 					selectedListId={selectedListId}
 					active={active}
 					onClick={() => { setActive(true) }}
-					onClickItem={() => { }}
+					onClickItem={(id) => { navigate(`/`) }}
+
 					onUpdateLists={() => { }} />
 				<List
 					lists={lists}
@@ -97,10 +109,28 @@ function App() {
 					onAddList={setIsListsChanged} />
 			</div>
 			<div className="todo__tasks">
-				{lists && selectedListId &&
-					<Tasks
-						list={lists.find(i => i.id === selectedListId) || null}
-						onUpdateLists={setIsListsChanged} />}
+				<Routes >
+					<Route path='/' element=
+						{lists &&
+							lists.map(list => (
+								<Tasks
+									key={list.id}
+									list={list}
+									onUpdateLists={setIsListsChanged}
+									withoutEmpty={true} />
+							))
+						}
+					/>
+
+					<Route path='/lists/:id' element=
+						{lists && selectedListId &&
+							<Tasks
+								key={0}
+								list={lists.find(i => i.id === selectedListId) || null}
+								onUpdateLists={setIsListsChanged}
+								withoutEmpty={false} />}
+					/>
+				</Routes>
 			</div>
 		</div>
 	);
