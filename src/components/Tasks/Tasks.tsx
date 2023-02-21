@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { ListType } from '../../App';
-import { ReactComponent as CheckSvg } from '../../assets/img/check.svg';
 import AddTask from './AddTask/AddTask';
 import Task from './Task/Task';
 import styles from './Tasks.module.scss';
@@ -11,13 +10,13 @@ type PropsType = {
 	list: ListType | null
 	onUpdateLists: (bool: boolean) => void
 	withoutEmpty: boolean
-	key: number
 }
 
 const Tasks = (props: PropsType) => {
 
 	const [editMode, setEditMode] = useState(false)
 	const [newListName, setNewListName] = useState('')
+
 
 	// Обновляем название листа для нового листа
 	useEffect(() => {
@@ -26,6 +25,8 @@ const Tasks = (props: PropsType) => {
 		}
 	}, [props.list])
 
+
+	// Меняем название листа
 	const EditListName = () => {
 		setEditMode(false)
 		if (newListName) {

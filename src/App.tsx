@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import listSvg from './assets/img/list2.svg';
 import AddList from './components/AddList/AddList';
 import List from './components/List/List';
@@ -44,7 +44,7 @@ function App() {
 	const [lists, setLists] = useState<ListTypeArray | null>(null) // Список листов
 	const [colors, setColors] = useState<ColorTypeArray | null>(null) // список цветов
 	const [selectedListId, setSelectedListId] = useState<number | null>(null) // Выбранный лист
-	const [active, setActive] = useState(false)
+	const [active, setActive] = useState(false) // Активный пункт sidebar "Все" или нет
 	let navigate = useNavigate()
 
 
@@ -66,18 +66,26 @@ function App() {
 	}, [isListsChanged])
 
 
+	// Определяем выбранный лист
 	let pathname = useLocation().pathname;
 	useEffect(() => {
-		const listId = pathname.split('lists/')[1]
-		setSelectedListId(+listId)
+		let listId = pathname.split('lists/')[1]
+		if (listId) {
+			setSelectedListId(+listId)
+		} else if (pathname === '/') {
+			setActive(true)
+
+		}
 	}, [pathname, lists])
 
 
+	// Делаем выбранный лист активным
 	const chooseActive = (id: number | null) => {
 		setSelectedListId(id)
 		setActive(false)
 		navigate(`/lists/${id}`)
 	}
+
 
 	return (
 		<div className="todo">
@@ -91,12 +99,9 @@ function App() {
 					active={active}
 					onClick={() => { setActive(true) }}
 					onClickItem={(id) => { navigate(`/`) }}
-
 					onUpdateLists={() => { }} />
 				<List
 					lists={lists}
-					title=''
-					img=''
 					isRemovableItem={true}
 					selectedListId={selectedListId}
 					active={active}

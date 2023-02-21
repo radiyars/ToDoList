@@ -9,23 +9,25 @@ import styles from './Task.module.scss';
 type PropsType = {
 	task: TaskType | null
 	onUpdateLists: (bool: boolean) => void
-	key: number
 }
 
 const Task = (props: PropsType) => {
 
 	const [editTaskMode, setEditTaskMode] = useState(false)
 	const [newTaskName, setNewTaskName] = useState('')
+	const [checked, setChecked] = useState(false)
 
 
 	// Обновляем название задачи
 	useEffect(() => {
 		if (props.task) {
 			setNewTaskName(props.task.text)
+			setChecked(props.task.completed)
 		}
 	}, [props.task])
 
 
+	// Меняем название задачи
 	const EditTaskName = () => {
 		setEditTaskMode(false)
 		if (newTaskName) {
@@ -43,17 +45,57 @@ const Task = (props: PropsType) => {
 	}
 
 
+	// Удаляем задачу
+	const RemoveTask = () => {
+		if (props.task) {
+			axios
+				.delete('http://localhost:3001/tasks/' + props.task.id)
+				.then(() => {
+					props.onUpdateLists(true)
+
+				})
+				.catch(() => {
+					alert('Не удалось удалить задачу!')
+				})
+		}
+	}
+
+
+	// Выполняем задачу (checkbox)
+	const onChecked = () => {
+		if (props.task) {
+			axios
+				.patch('http://localhost:3001/tasks/' + props.task.id, {
+					completed: !checked
+				})
+				.then(() => {
+					props.onUpdateLists(true)
+					console.log('update!');
+				})
+				.catch(() => {
+					alert('Не удалось выполнить задачу!')
+				})
+		}
+	}
+
+
 	return (
-		<div key={props.key} className={styles.task}>
+		<div className={styles.task} >
 			{props.task &&
 				<div className={styles.task__checkbox}>
-					<input id={`task-${props.task.id}`} type='checkbox' />
-					<label htmlFor={`task-${props.task.id}`}><CheckSvg className={styles.checkSvg} /></label>
+					<input
+						id={`task-${props.task.id}`}
+						type='checkbox'
+						checked={props.task.completed}
+						onChange={onChecked} />
+					<label htmlFor={`task-${props.task.id}`}>
+						<CheckSvg className={styles.checkSvg} />
+					</label>
 				</div>}
 
 
 			{!editTaskMode && props.task &&
-				<span onClick={() => setEditTaskMode(true)} className={styles.task__form}>
+				<span className={styles.task__form} onClick={() => setEditTaskMode(true)}>
 					{props.task.text}
 				</span>
 			}
@@ -68,7 +110,7 @@ const Task = (props: PropsType) => {
 					className={styles.task__form} />
 			}
 
-			<CloseSvg className={styles.task__closeSvg} />
+			<CloseSvg className={styles.task__closeSvg} onClick={RemoveTask} />
 		</div>
 	)
 }

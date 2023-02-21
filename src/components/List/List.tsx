@@ -1,17 +1,17 @@
-import { ListType, ListTypeArray } from "../../App";
+import axios from 'axios';
+import classNames from "classnames";
+import { useNavigate } from 'react-router-dom';
+import { ListTypeArray } from "../../App";
 import { ReactComponent as RemoveSvg } from "../../assets/img/close.svg";
 import Badge from "../Badge/Badge";
 import styles from "./List.module.scss";
-import axios from 'axios';
-import classNames from "classnames";
 
 
 
 type PropsType = {
-
 	lists: ListTypeArray | null
-	title: string
-	img: string
+	title?: string
+	img?: string
 	isRemovableItem: boolean
 	selectedListId: number | null
 	active: boolean
@@ -22,12 +22,15 @@ type PropsType = {
 
 
 const List = (props: PropsType) => {
+	let navigate = useNavigate()
+
 
 	//  Удаляем лист из списка
 	const removeList = (id: number) => {
 		axios
 			.delete('http://localhost:3001/lists/' + id)
 			.then(() => {
+				navigate('/')
 				props.onUpdateLists(true)
 			})
 	}
@@ -51,10 +54,9 @@ const List = (props: PropsType) => {
 				)
 			}
 			) :
-				<li key={0}
-					onClick={() => props.onClickItem(0)}
+				<li onClick={() => props.onClickItem(0)}
 					className={props.active ? styles.active : ''}>
-					<i>	{<img src={props.img} alt='Меню'></img>}</i>
+					<i>	{<img src={props.img} alt='Список'></img>}</i>
 					<span>{props.title}</span>
 				</li>
 			}

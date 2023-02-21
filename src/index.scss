@@ -62,7 +62,7 @@
 
 .button{
 	width: 100%;
-	background-color: #292E33;
+	background-color: #263f40;
 	border-radius: 4px;
 	color: #fff;
 	border: 0;
@@ -72,11 +72,11 @@
 	
 
 	&:hover{
-		background-color: lighten(#292E33, 6%);
+		background-color: lighten(#263f40, 6%);
 	}
 
 	&:active{
-		background-color: lighten(#292E33, 12%);
+		background-color: lighten(#263f40, 12%);
 	}
 
 	&:disabled{

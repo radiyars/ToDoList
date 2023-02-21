@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { ColorTypeArray, ListType } from "../../../App";
+import { ColorTypeArray } from "../../../App";
 import { ReactComponent as CloseSvg } from '../../../assets/img/close2.svg';
 import Badge from "../../Badge/Badge";
 import styles from './AddListForm.module.scss';
@@ -38,6 +38,7 @@ const AddListForm = (props: PropsType) => {
 		props.setVisibleAddListForm(false)
 	}
 
+
 	// Добавляем новый лист
 	const addNewList = () => {
 		if (!inputValue) {
@@ -65,6 +66,7 @@ const AddListForm = (props: PropsType) => {
 			})
 
 	}
+
 
 	return (
 		<div className={styles.addListForm}>

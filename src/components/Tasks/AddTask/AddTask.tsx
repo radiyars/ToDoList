@@ -1,6 +1,5 @@
-
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ListType } from '../../../App';
 import { ReactComponent as AddSvg } from '../../../assets/img/add.svg';
 import styles from './AddTask.module.scss';
@@ -17,6 +16,8 @@ const AddTask = (props: PropsType) => {
 	const [inputValue, setInputValue] = useState('')
 	const [isLoading, setIsLoading] = useState(false) // ожидание завершения запроса
 
+
+	// Прячем форму создания новой задачи
 	useEffect(() => {
 		setHiddenAddTaskForm(true)
 	}, [props.list && props.list.id])
@@ -26,7 +27,7 @@ const AddTask = (props: PropsType) => {
 		setInputValue('')
 	}
 
-
+	// Добавляем новую задачу
 	const AddTask = () => {
 		if (!inputValue) {
 			alert('Введите название списка!')
@@ -55,6 +56,7 @@ const AddTask = (props: PropsType) => {
 				})
 		}
 	}
+
 
 	return (
 		<div className={styles.addTask}>

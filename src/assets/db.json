@@ -1,229 +1,228 @@
 {
   "lists": [
     {
-      "id": 2,
-      "name": "Фронтенд",
-      "colorId": 4
+      "name": "HTML и CSS",
+      "colorId": 5,
+      "id": 1
     },
     {
-      "id": 5,
-      "name": "Личное",
-      "colorId": 1
+      "name": "JavaScript",
+      "colorId": 3,
+      "id": 2
     },
     {
-      "id": 6,
-      "name": "Спорт",
-      "colorId": 3
+      "name": "React",
+      "colorId": 6,
+      "id": 3
     },
     {
-      "name": "cbnxbn",
+      "name": "Redux",
       "colorId": 1,
-      "id": 7
+      "id": 4
     },
     {
-      "name": "asefasdf",
+      "name": "Git",
+      "colorId": 4,
+      "id": 5
+    },
+    {
+      "name": "TypeScript",
       "colorId": 1,
-      "id": 8
+      "id": 6
     }
   ],
   "tasks": [
     {
-      "id": 1,
-      "listId": 2,
-      "text": "Изучить JavaScript1",
-      "completed": true
+      "listId": 1,
+      "text": "Селекторы",
+      "completed": false,
+      "id": 1
     },
     {
-      "id": 3,
-      "listId": 2,
-      "text": "ReactJS Hooks (useState, useReducer, useEffect и т.д.)",
-      "completed": true
+      "listId": 1,
+      "text": "Блочная модель",
+      "completed": false,
+      "id": 2
     },
     {
-      "id": 4,
-      "listId": 2,
-      "text": "Redux (redux-observable, redux-saga)",
-      "completed": false
+      "listId": 1,
+      "text": "Отображение и позиционирование",
+      "completed": false,
+      "id": 3
     },
     {
-      "listId": 2,
-      "text": "123",
-      "completed": true,
+      "listId": 1,
+      "text": "Переходы (transitions) и анимация (animations)",
+      "completed": false,
+      "id": 4
+    },
+    {
+      "listId": 1,
+      "text": "Препроцессоры CSS",
+      "completed": false,
       "id": 5
     },
     {
-      "listId": 2,
-      "text": "222",
-      "completed": true,
-      "id": 121
+      "listId": 1,
+      "text": "Совместимость с браузерами",
+      "completed": false,
+      "id": 6
+    },
+    {
+      "listId": 1,
+      "text": "Отзывчивый (responsive) дизайн",
+      "completed": false,
+      "id": 7
+    },
+    {
+      "listId": 1,
+      "text": "Медиа-запросы (@media)",
+      "completed": false,
+      "id": 8
+    },
+    {
+      "listId": 1,
+      "text": "Контейнерные запросы (@container)",
+      "completed": false,
+      "id": 9
+    },
+    {
+      "listId": 1,
+      "text": "Flexbox и Grid",
+      "completed": false,
+      "id": 10
     },
     {
       "listId": 2,
-      "text": "ccvncvn",
+      "text": "Переменные ",
+      "completed": false,
+      "id": 11
+    },
+    {
+      "listId": 2,
+      "text": "Примитивные типы данных и объекты",
+      "completed": false,
+      "id": 12
+    },
+    {
+      "listId": 2,
+      "text": "Операторы сравнения JavaScript",
       "completed": false,
       "id": 13
     },
     {
       "listId": 2,
-      "text": "ccvncvn",
+      "text": "Операторы if/else и switch",
       "completed": false,
       "id": 14
     },
     {
       "listId": 2,
-      "text": "ccvncvn",
+      "text": "Функции и стрелочные функции",
       "completed": false,
       "id": 15
     },
     {
       "listId": 2,
-      "text": "ccvncvn",
+      "text": "Объекты",
       "completed": false,
       "id": 16
     },
     {
       "listId": 2,
-      "text": "fvdfvd",
+      "text": "Массивы",
       "completed": false,
       "id": 17
     },
     {
-      "listId": 5,
-      "text": "fgsdfgdsg",
+      "listId": 2,
+      "text": "Асинхронный операции",
       "completed": false,
       "id": 18
     },
     {
-      "listId": 6,
-      "text": "111",
+      "listId": 3,
+      "text": "Компоненты",
       "completed": false,
       "id": 19
     },
     {
-      "listId": 6,
-      "text": "111",
+      "listId": 3,
+      "text": "Пропсы",
       "completed": false,
       "id": 20
     },
     {
-      "listId": 6,
-      "text": "123",
+      "listId": 3,
+      "text": "Хуки",
       "completed": false,
       "id": 21
     },
     {
-      "listId": 6,
-      "text": "sdf",
+      "listId": 4,
+      "text": "FLUX-концепция",
       "completed": false,
       "id": 22
     },
     {
-      "listId": 6,
-      "text": "[f[[f[",
+      "listId": 4,
+      "text": "Action Creator",
       "completed": false,
       "id": 23
     },
     {
-      "listId": 6,
-      "text": "цуцук",
+      "listId": 4,
+      "text": "Dispatch",
       "completed": false,
       "id": 24
     },
     {
-      "listId": 6,
-      "text": "вапывап",
+      "listId": 4,
+      "text": "Thunk",
       "completed": false,
       "id": 25
     },
     {
-      "listId": 6,
-      "text": "ывапывап",
+      "listId": 4,
+      "text": "Connect",
       "completed": false,
       "id": 26
     },
     {
-      "listId": 6,
-      "text": "wew",
+      "listId": 3,
+      "text": "HOC",
       "completed": false,
       "id": 27
     },
     {
-      "listId": 6,
-      "text": "efsdf",
+      "listId": 3,
+      "text": "Классовые компоненты",
       "completed": false,
       "id": 28
     },
     {
-      "listId": 6,
-      "text": "sadfasdf",
+      "listId": 3,
+      "text": "Контейнерные компоненты",
       "completed": false,
       "id": 29
     },
     {
       "listId": 6,
-      "text": "sdfgsdfg",
+      "text": "Типизация",
       "completed": false,
       "id": 30
     },
     {
       "listId": 6,
-      "text": "asdfsdf",
+      "text": "Дженерики",
       "completed": false,
       "id": 31
     },
     {
-      "listId": 6,
-      "text": "zcxvzxcv",
+      "listId": 5,
+      "text": "Основные запросы",
       "completed": false,
       "id": 32
-    },
-    {
-      "listId": 6,
-      "text": "zcvzxvc",
-      "completed": false,
-      "id": 33
-    },
-    {
-      "listId": 6,
-      "text": "asdfsadfsaf",
-      "completed": false,
-      "id": 34
-    },
-    {
-      "listId": 6,
-      "text": "sdfgsdfg",
-      "completed": false,
-      "id": 35
-    },
-    {
-      "listId": 6,
-      "text": "dsfgsdfg",
-      "completed": false,
-      "id": 36
-    },
-    {
-      "listId": 6,
-      "text": "sdfgsdfg",
-      "completed": false,
-      "id": 37
-    },
-    {
-      "listId": 6,
-      "text": "zxvzxv",
-      "completed": false,
-      "id": 38
-    },
-    {
-      "listId": 2,
-      "text": "dfadf",
-      "completed": false,
-      "id": 40
-    },
-    {
-      "listId": 2,
-      "text": "zxcvz",
-      "completed": false,
-      "id": 42
     }
   ],
   "colors": [
