@@ -53,8 +53,12 @@ function App() {
 		axios.get('http://localhost:3001/colors').then(({ data }) => {
 			setColors(data)
 		})
+			.catch(() => {
+				if (!lists) {
+					alert("Для полноценной работы приложения необходимо запустить json-server. Для этого выполните 'npm run fake-server' или 'yarn fake-server'")
+				}
+			})
 	}, [])
-
 
 	// Следим за изменением листов
 	useEffect(() => {
@@ -100,14 +104,14 @@ function App() {
 					onClick={() => { setActive(true) }}
 					onClickItem={(id) => { navigate(`/`) }}
 					onUpdateLists={() => { }} />
-				<List
+				{lists && <List
 					lists={lists}
 					isRemovableItem={true}
 					selectedListId={selectedListId}
 					active={active}
 					onClick={() => { }}
 					onClickItem={chooseActive}
-					onUpdateLists={setIsListsChanged} />
+					onUpdateLists={setIsListsChanged} />}
 				<AddList
 					lists={lists}
 					colors={colors}
