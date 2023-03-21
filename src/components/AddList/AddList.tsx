@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { ColorTypeArray, ListTypeArray } from "../../App";
 import addSvg from '../../assets/img/add.svg';
 import List from "../List/List";
+import { ColorType, ListType } from "../../redux/task-reducer";
 import AddListForm from './AddListForm/AddListForm';
 
 
 
 type PropsType = {
-	lists: ListTypeArray | null
-	colors: ColorTypeArray | null
+	lists: Array<ListType> | null
+	colors: Array<ColorType> | null
 	onAddList: (bool: boolean) => void
 
 }

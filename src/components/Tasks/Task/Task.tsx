@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { TaskType } from '../../../App';
 import { ReactComponent as CheckSvg } from '../../../assets/img/check.svg';
 import { ReactComponent as CloseSvg } from '../../../assets/img/close.svg';
+import { TaskType } from '../../../redux/task-reducer';
 import styles from './Task.module.scss';
 
 

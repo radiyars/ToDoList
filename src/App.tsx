@@ -4,61 +4,45 @@ import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import listSvg from './assets/img/list2.svg';
 import AddList from './components/AddList/AddList';
 import List from './components/List/List';
+import { ColorType, ListType } from './redux/task-reducer';
 import Tasks from './components/Tasks/Tasks';
-
-
-export type ListType = {
-	id: number
-	name: string
-	colorId: number
-	color: ColorType
-	tasks: TaskTypeArray
-}
-export type ListTypeArray = Array<ListType>
-
-export type TaskType = {
-	id: number
-	listId: number
-	text: string
-	completed: boolean
-}
-export type TaskTypeArray = Array<TaskType>
-
-type ColorType = {
-	id: number
-	hex: string
-	name: string
-}
-export type ColorTypeArray = Array<ColorType>
-
-export type StateType = {
-	lists: Array<ListType>
-	tasks: Array<TaskType>
-	colors: Array<ColorType>
-}
+import { useTypedSelector } from './hooks/useTypedSelector';
+import { useActions } from './hooks/useAction';
 
 
 function App() {
 
 	const [isListsChanged, setIsListsChanged] = useState(false)  // Новый список листов
-	const [lists, setLists] = useState<ListTypeArray | null>(null) // Список листов
-	const [colors, setColors] = useState<ColorTypeArray | null>(null) // список цветов
+	const [lists, setLists] = useState<Array<ListType> | null>(null) // Список листов
+	const [colors, setColors] = useState<Array<ColorType> | null>(null) // список цветов
 	const [selectedListId, setSelectedListId] = useState<number | null>(null) // Выбранный лист
 	const [active, setActive] = useState(false) // Активный пункт sidebar "Все" или нет
 	let navigate = useNavigate()
 
+	// -------------
+	const colors1 = useTypedSelector(state => state.app.colors)
+	console.log(colors1);
+	const { loadColors } = useActions()
 
-	// Получаем данные о цветах только при первом рендеринге
 	useEffect(() => {
-		axios.get('http://localhost:3001/colors').then(({ data }) => {
-			setColors(data)
-		})
-			.catch(() => {
-				if (!lists) {
-					alert("Для полноценной работы приложения необходимо запустить json-server. Для этого выполните 'npm run fake-server' или 'yarn fake-server'")
-				}
-			})
+		loadColors()
 	}, [])
+
+	// -------------
+
+
+	// // Получаем данные о цветах только при первом рендеринге
+	// useEffect(() => {
+	// 	axios.get('http://localhost:3001/colors').then(({ data }) => {
+	// 		setColors(data)
+	// 	})
+	// 		.catch(() => {
+	// 			if (!lists) {
+	// 				alert("Для полноценной работы приложения необходимо запустить json-server. Для этого выполните 'npm run fake-server' или 'yarn fake-server'")
+	// 			}
+	// 		})
+	// }, [])
+
 
 	// Следим за изменением листов
 	useEffect(() => {

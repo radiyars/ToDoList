@@ -1,14 +1,14 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { ColorTypeArray } from "../../../App";
 import { ReactComponent as CloseSvg } from '../../../assets/img/close2.svg';
 import Badge from "../../Badge/Badge";
+import { ColorType } from '../../../redux/task-reducer';
 import styles from './AddListForm.module.scss';
 
 
 
 type PropsType = {
-	colors: ColorTypeArray | null
+	colors: Array<ColorType> | null
 	setVisibleAddListForm: (visibleAddListForm: boolean) => void
 	onAddList: (bool: boolean) => void
 

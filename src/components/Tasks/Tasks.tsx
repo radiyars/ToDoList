@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { ListType } from '../../App';
+import { ListType } from '../../redux/task-reducer';
 import AddTask from './AddTask/AddTask';
 import Task from './Task/Task';
 import styles from './Tasks.module.scss';

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { ListType } from '../../../App';
 import { ReactComponent as AddSvg } from '../../../assets/img/add.svg';
+import { ListType } from '../../../redux/task-reducer';
 import styles from './AddTask.module.scss';
 
 

@@ -1,15 +1,15 @@
 import axios from 'axios';
 import classNames from "classnames";
 import { useNavigate } from 'react-router-dom';
-import { ListTypeArray } from "../../App";
 import { ReactComponent as RemoveSvg } from "../../assets/img/close.svg";
 import Badge from "../Badge/Badge";
+import { ListType } from '../../redux/task-reducer';
 import styles from "./List.module.scss";
 
 
 
 type PropsType = {
-	lists: ListTypeArray | null
+	lists: Array<ListType> | null
 	title?: string
 	img?: string
 	isRemovableItem: boolean
