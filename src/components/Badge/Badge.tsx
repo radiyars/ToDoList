@@ -1,5 +1,4 @@
-
-import styles from './Badge.module.scss'
+import styles from './Badge.module.scss';
 
 type PropsType = {
 	color: string
