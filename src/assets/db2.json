@@ -1,0 +1,226 @@
+{
+	"lists": [
+		{
+			"name": "HTML и CSS",
+			"color": {
+				"colorId": 2,
+				"hex": "#42B883",
+				"name": "green"
+			},
+			"tasks": [
+				{
+					"text": "Селекторы",
+					"completed": false
+				},
+				{
+					"text": "Блочная модель",
+					"completed": false
+				},
+				{
+					"text": "Отображение и позиционирование",
+					"completed": false
+				},
+				{
+					"text": "Переходы (transitions) и анимация (animations)",
+					"completed": false
+				},
+				{
+					"text": "Препроцессоры CSS",
+					"completed": false
+				},
+				{
+					"text": "Совместимость с браузерами",
+					"completed": false
+				},
+				{
+					"text": "Отзывчивый (responsive) дизайн",
+					"completed": false
+				},
+				{
+					"text": "Медиа-запросы (@media)",
+					"completed": false
+				},
+				{
+					"text": "Контейнерные запросы (@container)",
+					"completed": false
+				},
+				{
+					"text": "Flexbox и Grid",
+					"completed": false
+				}
+			]
+		},
+		{
+			"name": "JavaScript",
+			"color": {
+				"id": 8,
+				"hex": "#FF6464",
+				"name": "red"
+			},
+			"tasks": [
+				{
+					"text": "Переменные ",
+					"completed": false
+				},
+				{
+					"text": "Примитивные типы данных и объекты",
+					"completed": false
+				},
+				{
+					"text": "Операторы сравнения JavaScript",
+					"completed": false
+				},
+				{
+					"text": "Операторы if/else и switch",
+					"completed": false
+				},
+				{
+					"text": "Функции и стрелочные функции",
+					"completed": false
+				},
+				{
+					"text": "Объекты",
+					"completed": false
+				},
+				{
+					"text": "Массивы",
+					"completed": false
+				},
+				{
+					"text": "Асинхронный операции",
+					"completed": false
+				}
+			]
+		},
+		{
+			"name": "React",
+			"color": {
+				"id": 6,
+				"hex": "#C355F5",
+				"name": "purple"
+			},
+			"tasks": [
+				{
+					"text": "Компоненты",
+					"completed": false
+				},
+				{
+					"text": "Пропсы",
+					"completed": false
+				},
+				{
+					"text": "Хуки",
+					"completed": false
+				}
+			]
+		},
+		{
+			"name": "Redux",
+			"color": {
+				"id": 4,
+				"hex": "#FFBBCC",
+				"name": "pink"
+			},
+			"tasks": [
+				{
+					"text": "FLUX-концепция",
+					"completed": false
+				},
+				{
+					"text": "Action Creator",
+					"completed": false
+				},
+				{
+					"text": "Dispatch",
+					"completed": false
+				},
+				{
+					"text": "Thunk",
+					"completed": false
+				},
+				{
+					"text": "Connect",
+					"completed": false
+				}
+			]
+		},
+		{
+			"name": "Git",
+			"color": {
+				"id": 3,
+				"hex": "#64C4ED",
+				"name": "blue"
+			},
+			"tasks": [
+				{
+					"text": "Основные запросы",
+					"completed": false
+				}
+			]
+		},
+		{
+			"name": "TypeScript",
+			"color": {
+				"id": 1,
+				"hex": "#C9D1D3",
+				"name": "grey"
+			},
+			"tasks": [
+				{
+					"listId": 6,
+					"text": "Типизация",
+					"completed": false,
+					"id": 30
+				},
+				{
+					"listId": 6,
+					"text": "Дженерики",
+					"completed": false,
+					"id": 31
+				}
+			]
+		}
+	],
+	"colors": [
+		{
+			"colorId": 1,
+			"hex": "#C9D1D3",
+			"name": "grey"
+		},
+		{
+			"colorId": 2,
+			"hex": "#42B883",
+			"name": "green"
+		},
+		{
+			"colorId": 3,
+			"hex": "#64C4ED",
+			"name": "blue"
+		},
+		{
+			"colorId": 4,
+			"hex": "#FFBBCC",
+			"name": "pink"
+		},
+		{
+			"colorId": 5,
+			"hex": "#B6E6BD",
+			"name": "lime"
+		},
+		{
+			"colorId": 6,
+			"hex": "#C355F5",
+			"name": "purple"
+		},
+		{
+			"colorId": 7,
+			"hex": "#110133",
+			"name": "black"
+		},
+		{
+			"colorId": 8,
+			"hex": "#FF6464",
+			"name": "red"
+		}
+	]
+}

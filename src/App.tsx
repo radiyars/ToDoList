@@ -4,10 +4,11 @@ import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import listSvg from './assets/img/list2.svg';
 import AddList from './components/AddList/AddList';
 import List from './components/List/List';
-import { ColorType, ListType } from './redux/task-reducer';
+import { ListType } from './redux/lists-reducer';
 import Tasks from './components/Tasks/Tasks';
 import { useTypedSelector } from './hooks/useTypedSelector';
 import { useActions } from './hooks/useAction';
+import { ColorType } from './redux/color-reducer';
 
 
 function App() {
@@ -20,12 +21,14 @@ function App() {
 	let navigate = useNavigate()
 
 	// -------------
-	const colors1 = useTypedSelector(state => state.app.colors)
-	console.log(colors1);
-	const { loadColors } = useActions()
+
+	const { getLists } = useActions()
+	const lists1 = useTypedSelector(state => state.lists)
+	console.log(lists1);
+
 
 	useEffect(() => {
-		loadColors()
+		getLists()
 	}, [])
 
 	// -------------
@@ -76,56 +79,57 @@ function App() {
 
 
 	return (
-		<div className="todo">
-			<div className="todo__sidebar">
-				<List
-					lists={null}
-					title='Все задачи'
-					img={listSvg}
-					isRemovableItem={false}
-					selectedListId={selectedListId}
-					active={active}
-					onClick={() => { setActive(true) }}
-					onClickItem={(id) => { navigate(`/`) }}
-					onUpdateLists={() => { }} />
-				{lists && <List
-					lists={lists}
-					isRemovableItem={true}
-					selectedListId={selectedListId}
-					active={active}
-					onClick={() => { }}
-					onClickItem={chooseActive}
-					onUpdateLists={setIsListsChanged} />}
-				<AddList
-					lists={lists}
-					colors={colors}
-					onAddList={setIsListsChanged} />
-			</div>
-			<div className="todo__tasks">
-				<Routes >
-					<Route path='/' element=
-						{lists &&
-							lists.map(list => (
-								<Tasks
-									key={list.id}
-									list={list}
-									onUpdateLists={setIsListsChanged}
-									withoutEmpty={true} />
-							))
-						}
-					/>
+		<div></div>
+		// <div className="todo">
+		// 	<div className="todo__sidebar">
+		// 		<List
+		// 			lists={null}
+		// 			title='Все задачи'
+		// 			img={listSvg}
+		// 			isRemovableItem={false}
+		// 			selectedListId={selectedListId}
+		// 			active={active}
+		// 			onClick={() => { setActive(true) }}
+		// 			onClickItem={(id) => { navigate(`/`) }}
+		// 			onUpdateLists={() => { }} />
+		// 		{lists && <List
+		// 			lists={lists}
+		// 			isRemovableItem={true}
+		// 			selectedListId={selectedListId}
+		// 			active={active}
+		// 			onClick={() => { }}
+		// 			onClickItem={chooseActive}
+		// 			onUpdateLists={setIsListsChanged} />}
+		// 		<AddList
+		// 			lists={lists}
+		// 			colors={colors}
+		// 			onAddList={setIsListsChanged} />
+		// 	</div>
+		// 	<div className="todo__tasks">
+		// 		<Routes >
+		// 			<Route path='/' element=
+		// 				{lists &&
+		// 					lists.map(list => (
+		// 						<Tasks
+		// 							key={list.id}
+		// 							list={list}
+		// 							onUpdateLists={setIsListsChanged}
+		// 							withoutEmpty={true} />
+		// 					))
+		// 				}
+		// 			/>
 
-					<Route path='/lists/:id' element=
-						{lists && selectedListId &&
-							<Tasks
-								key={0}
-								list={lists.find(i => i.id === selectedListId) || null}
-								onUpdateLists={setIsListsChanged}
-								withoutEmpty={false} />}
-					/>
-				</Routes>
-			</div>
-		</div>
+		// 			<Route path='/lists/:id' element=
+		// 				{lists && selectedListId &&
+		// 					<Tasks
+		// 						key={0}
+		// 						list={lists.find(i => i.id === selectedListId) || null}
+		// 						onUpdateLists={setIsListsChanged}
+		// 						withoutEmpty={false} />}
+		// 			/>
+		// 		</Routes>
+		// 	</div>
+		// </div>
 	);
 }
 

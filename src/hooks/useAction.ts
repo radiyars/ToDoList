@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import { appActions } from './../redux/task-reducer';
+import { listsActions } from '../redux/lists-reducer';
 
-const allActions = { ...appActions }
+const allActions = { ...listsActions }
 
 export const useActions = () => {
 	const dispatch = useDispatch()
