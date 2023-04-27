@@ -2,7 +2,7 @@
 import styles from './Badge.module.scss'
 
 type PropsType = {
-	color: string
+	color: string | null
 	onClick: () => void
 	className: string
 }
@@ -10,6 +10,6 @@ type PropsType = {
 const Badge = (props: PropsType) => <i
 	onClick={props.onClick}
 	className={`${styles.badge} ${props.className}`}
-	style={{ backgroundColor: props.color }}></i>
+	style={{ backgroundColor: props.color ? props.color : '' }}></i>
 
 export default Badge

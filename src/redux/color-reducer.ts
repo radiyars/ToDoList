@@ -1,104 +1,69 @@
-// Массив цветов
+import { Dispatch } from 'react';
+import axios from 'axios';
+
+//	Actions CONST	---------------------------------------------------------------------------
+
+export const ADD_COLORS = 'ADD_COLORS'
+
+
+//	Initial State & i'ts type	---------------------------------------------------------------
+
 export type ColorType = {
-	// id: string
-	colorId: number
-	hex: string
-	name: string
+	colorId: number | null
+	hex: string | null
+	name: string | null
 }
 
-// // const initialColor: ColorType = {
-// // 	id: 0,
-// // 	hex: '',
-// // 	name: ''
-// // }
+// Массив цветов
+const initialState: Array<ColorType> = [
+	{
+		colorId: 0,
+		hex: '',
+		name: ''
+	}
+]
+
+export type InitialStateType = Array<ColorType>
 
 
-// import { Dispatch } from 'react';
-// import axios from 'axios';
-// import { ColorType } from './color-reducer';
+//	Reducer	-------------------------------------------------------------------------------------
 
-// //	Actions CONST	---------------------------------------------------------------------------
-
-// export const ADD_LISTS = 'ADD_LISTS'
-
-
-// //	Initial State & i'ts type	---------------------------------------------------------------
-
-// // Массив задач
-// export type TaskType = {
-// 	text: string
-// 	completed: boolean
-// }
+export const colorsReducer = (state = initialState, action: AppActionsTypes): InitialStateType => {
+	switch (action.type) {
+		case ADD_COLORS:
+			return [...action.colors]
+		default:
+			return state;
+	}
+}
 
 
-// // Массив листов
-// export type ListType = {
-// 	id: string
-// 	name: string
-// 	colorId: number
-// 	color: ColorType
-// 	tasks: Array<TaskType>
-// }
+//	Actions	-----------------------------------------------------------------------------------
 
-// const initialState: ListType = {
-// 	id: '',
-// 	name: '',
-// 	colorId: 0,
-// 	color: {
-// 		id: '',
-// 		colorId: 0,
-// 		hex: '',
-// 		name: '',
-// 	},
-// 	tasks: [{
-// 		text: '',
-// 		completed: false
-// 	}]
-// }
-
-// export type InitialStateType = ListType
+export type AppActionsTypes = AddColorsType
 
 
-// //	Reducer	-------------------------------------------------------------------------------------
-// export const appReducer = (state = initialState, action: AppActionsTypes): InitialStateType => {
-// 	switch (action.type) {
-// 		case ADD_LISTS:
-// 			return {
-// 				...state,
-// 				lists: action.lists
-// 			}
-// 		default:
-// 			return state;
-// 	}
-// }
+type AddColorsType = {
+	type: typeof ADD_COLORS
+	colors: Array<ColorType>
+}
 
-// //	Actions	-----------------------------------------------------------------------------------
-
-// export type AppActionsTypes = AddColorsType
+export const addColors = (colors: Array<ColorType>): AddColorsType => ({ type: ADD_COLORS, colors })
 
 
-// type AddColorsType = {
-// 	type: typeof ADD_COLORS
-// 	colors: Array<ColorType>
-// }
+//	Thunks	------------------------------------------------------------------------------------
 
-// export const addLists = (lists: Array<ColorType>): AddColorsType => ({ type: ADD_COLORS, colors })
+export function getColors() {
+	return async (dispatch: Dispatch<AppActionsTypes>) => {
+		try {
+			//? Добавить лоадер?? dispatch(loaderOn());
+			axios.get('https://todo-list-server-silk.vercel.app/api/colors').then(({ data }) => {
+				dispatch(addColors(data))
+			})
+		} catch (err) {
+			alert("ашипка")
+		}
+	}
+}
 
-
-
-// //	Thunks	------------------------------------------------------------------------------------
-
-// export function loadColors() {
-// 	return async (dispatch: Dispatch<AppActionsTypes>) => {
-// 		try {
-// 			//? Добавить лоадер?? dispatch(loaderOn());
-// 			axios.get('http://localhost:3001/colors').then(({ data }) => {
-// 				dispatch(addColors(data))
-// 			})
-// 		} catch (err) {
-// 			alert("Для полноценной работы приложения необходимо запустить json-server. Для этого выполните 'npm run fake-server' или 'yarn fake-server'")
-// 		}
-// 	}
-// }
-
-// export const appActions = { addColors, loadColors }
+export const colorsActions = { addColors, getColors }

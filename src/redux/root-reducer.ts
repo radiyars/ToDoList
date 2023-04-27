@@ -2,10 +2,12 @@ import { applyMiddleware, combineReducers, legacy_createStore as createStore } f
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from "redux-thunk";
 import { listsReducer } from "./lists-reducer";
+import { colorsReducer } from "./color-reducer";
 
 
 export const rootReducer = combineReducers({
-	lists: listsReducer
+	lists: listsReducer,
+	colors: colorsReducer,
 })
 
 export type AppStateType = ReturnType<typeof rootReducer>

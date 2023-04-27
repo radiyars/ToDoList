@@ -4,24 +4,23 @@ import axios from 'axios';
 import { ColorType } from './color-reducer';
 
 //	Actions CONST	---------------------------------------------------------------------------
-
 export const ADD_LISTS = 'ADD_LISTS'
 
 
 //	Initial State & i'ts type	---------------------------------------------------------------
 
-// Массив задач
+// Задачи
 export type TaskType = {
-	_id: string
-	text: string
-	completed: boolean
+	_id: string | null
+	text: string | null
+	completed: boolean | null
 }
 
 
-// Массив листов
+// Листы с задачами
 export type ListType = {
-	_id: string
-	name: string
+	_id: string | null
+	name: string | null
 	color: ColorType
 	tasks: Array<TaskType>
 }
@@ -47,13 +46,12 @@ export type InitialStateType = Array<ListType>
 
 
 //	Reducer	-------------------------------------------------------------------------------------
+
 export const listsReducer = (state = initialState, action: AppActionsTypes): InitialStateType => {
 	switch (action.type) {
 		case ADD_LISTS:
-			return {
-				// ...state,
-				...action.lists
-			}
+			return [...action.lists]
+
 		default:
 			return state;
 	}
@@ -87,5 +85,19 @@ export function getLists() {
 		}
 	}
 }
+
+
+// export function postList() {
+// 	return async (dispatch: Dispatch<AppActionsTypes>) => {
+// 		try {
+// 			//? Добавить лоадер?? dispatch(loaderOn());
+// 			axios.get('https://todo-list-server-silk.vercel.app/api/lists').then(({ data }) => {
+// 				dispatch(addLists(data))
+// 			})
+// 		} catch (err) {
+// 			alert("ашипка!")
+// 		}
+// 	}
+// }
 
 export const listsActions = { addLists, getLists }
