@@ -1,5 +1,5 @@
-import { Dispatch } from 'react';
-import axios from 'axios';
+import { Dispatch } from 'react'
+import { colorsAPI } from '../api/colors-api'
 
 //	Actions CONST	---------------------------------------------------------------------------
 
@@ -9,7 +9,7 @@ export const ADD_COLORS = 'ADD_COLORS'
 //	Initial State & i'ts type	---------------------------------------------------------------
 
 export type ColorType = {
-	colorId: number | null
+	colorId: number
 	hex: string | null
 	name: string | null
 }
@@ -56,12 +56,10 @@ export const addColors = (colors: Array<ColorType>): AddColorsType => ({ type: A
 export function getColors() {
 	return async (dispatch: Dispatch<AppActionsTypes>) => {
 		try {
-			//? Добавить лоадер?? dispatch(loaderOn());
-			axios.get('https://todo-list-server-silk.vercel.app/api/colors').then(({ data }) => {
-				dispatch(addColors(data))
-			})
+			let data = await colorsAPI.getColors()
+			dispatch(addColors(data))
 		} catch (err) {
-			alert("ашипка")
+			alert(`Ошибка при загрузке списка цветов! ${err}`)
 		}
 	}
 }

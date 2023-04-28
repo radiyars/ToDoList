@@ -105,9 +105,6 @@ function App() {
 					/>
 				}
 				<AddList
-					lists={lists}
-					colors={colors}
-					onAddList={setIsListsChanged}
 				/>
 			</div>
 			{/* <div className="todo__tasks">

@@ -1,10 +1,10 @@
-import axios from 'axios';
-import classNames from "classnames";
-import { useNavigate } from 'react-router-dom';
-import { ReactComponent as RemoveSvg } from "../../assets/img/close.svg";
-import Badge from "../Badge/Badge";
-import { ListType } from '../../redux/lists-reducer';
-import styles from "./List.module.scss";
+import classNames from "classnames"
+import { useNavigate } from 'react-router-dom'
+import { ReactComponent as RemoveSvg } from "../../assets/img/close.svg"
+import { useActions } from '../../hooks/useAction'
+import { ListType } from '../../redux/lists-reducer'
+import Badge from "../Badge/Badge"
+import styles from "./List.module.scss"
 
 
 
@@ -22,18 +22,19 @@ type PropsType = {
 
 
 const List = (props: PropsType) => {
+
+	const { deleteList } = useActions()
+
 	let navigate = useNavigate()
 
-	console.log('props.lists:' + props.lists);
 
 	//  Удаляем лист из списка
-	const removeList = (id: string | null) => {
-		axios
-			.delete('http://localhost:3001/lists/' + id)
-			.then(() => {
-				navigate('/')
-				props.onUpdateLists(true)
-			})
+	const removeList = async (id: string | null) => {
+
+		if (id) {
+			await deleteList(id)
+			navigate('/')
+		}
 	}
 
 

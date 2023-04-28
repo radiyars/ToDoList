@@ -1,70 +1,43 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { ReactComponent as CloseSvg } from '../../../assets/img/close2.svg';
-import Badge from "../../Badge/Badge";
-import styles from './AddListForm.module.scss';
-import { ColorType } from '../../../redux/color-reducer';
-
+import { useState } from 'react'
+import { ReactComponent as CloseSvg } from '../../../assets/img/close2.svg'
+import { useActions } from '../../../hooks/useAction'
+import { useTypedSelector } from '../../../hooks/useTypedSelector'
+import Badge from "../../Badge/Badge"
+import styles from './AddListForm.module.scss'
 
 
 type PropsType = {
-	colors: Array<ColorType> | null
 	setVisibleAddListForm: (visibleAddListForm: boolean) => void
-	onAddList: (bool: boolean) => void
-
 }
-
 
 const AddListForm = (props: PropsType) => {
 
-	const [selectedColor, setSelectedColor] = useState<number | null>(1) // выбранный цвет
-	const [inputValue, setListName] = useState('') // имя нового листа
+	const [selectedColor, setSelectedColor] = useState(1) // выбранный цвет
+	const [inputValue, setListName] = useState('') // имя нового списка
 	const [isLoading, setIsLoading] = useState(false) // ожидание завершения запроса
 
-
-	// При первом рендеринге пока данные не пришли мы не можем отобразить выбранный цвет.
-	// После рендеринга при получении массива цветов получаем цвет выбранного элемента
-	useEffect(() => {
-		if (!!props.colors) {
-			setSelectedColor(props.colors[0].colorId)
-		}
-	}, [props.colors])
+	const colors = useTypedSelector(state => state.colors)
+	const { postList } = useActions()
 
 
 	// Действия при закрытии формы создания нового листа
 	const onClose = () => {
 		setListName('')
-		setSelectedColor(Array.isArray(props.colors) ? props.colors[0].colorId : 1)
+		setSelectedColor(1)
 		props.setVisibleAddListForm(false)
 	}
 
 
 	// Добавляем новый лист
-	const addNewList = () => {
+	const addNewList = async () => {
 		if (!inputValue) {
 			alert('Введите название списка!')
 			return
 		}
-
 		setIsLoading(true)
-		axios
-			.post('http://localhost:3001/lists',
-				// Id добавляется автотомаически в json-server
-				{ name: inputValue, colorId: selectedColor })
-			.then(() => { // после удачного запроса выполняем следующие операции:
-				// После того, как добавили в БД новый лист,
-				// обновляем наш lists
-				props.onAddList(true)
-				onClose()
-
-			})
-			.catch(() => {
-				alert('Ошибка при добавлении списка!')
-			})
-			.finally(() => { // При любом (удачном или неудачном) завершении запроса считаем что "Добавление завершено"
-				setIsLoading(false)
-			})
-
+		await postList(inputValue, colors[selectedColor - 1])
+		setIsLoading(false)
+		onClose()
 	}
 
 
@@ -73,8 +46,8 @@ const AddListForm = (props: PropsType) => {
 			<CloseSvg onClick={onClose} className={styles.addListForm__closeSvg} />
 			<input className={`field`} type="text" value={inputValue} placeholder="Название списка" onChange={(e) => setListName(e.target.value)} />
 			<div className={styles.addListForm__colors}>
-				{!!props.colors &&
-					props.colors.map(item => (
+				{!!colors &&
+					colors.map(item => (
 						< Badge
 							className={`${selectedColor === item.colorId && styles.active} ${styles.bigBadge}`}
 							onClick={() => { setSelectedColor(item.colorId) }}
