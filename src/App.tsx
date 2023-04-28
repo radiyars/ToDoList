@@ -14,48 +14,20 @@ import { ColorType } from './redux/color-reducer';
 function App() {
 
 	const [isListsChanged, setIsListsChanged] = useState(false)  // Новый список листов
-	// const [lists, setLists] = useState<Array<ListType> | null>(null) // Список листов
-	// const [colors, setColors] = useState<Array<ColorType> | null>(null) // список цветов
 	const [selectedListId, setSelectedListId] = useState<string | null>(null) // Выбранный лист
 	const [active, setActive] = useState(false) // Активный пункт sidebar "Все" или нет
 	let navigate = useNavigate()
 
-	// -------------
 
 	const { getLists, getColors } = useActions()
 
 	const lists = useTypedSelector(state => state.lists)
-	const colors = useTypedSelector(state => state.colors)
-
 
 
 	useEffect(() => {
 		getLists()
 		getColors()
 	}, [])
-
-
-	// // Получаем данные о цветах только при первом рендеринге
-	// useEffect(() => {
-	// 	axios.get('http://localhost:3001/colors').then(({ data }) => {
-	// 		setColors(data)
-	// 	})
-	// 		.catch(() => {
-	// 			if (!lists) {
-	// 				alert("Для полноценной работы приложения необходимо запустить json-server. Для этого выполните 'npm run fake-server' или 'yarn fake-server'")
-	// 			}
-	// 		})
-	// }, [])
-
-
-	// // Следим за изменением листов
-	// useEffect(() => {
-	// 	axios.get('http://localhost:3001/lists?_expand=color&_embed=tasks').then(({ data }) => {
-	// 		setLists(data)
-	// 	})
-	// 	setIsListsChanged(false)
-
-	// }, [isListsChanged])
 
 
 	// // Определяем выбранный лист
@@ -107,13 +79,13 @@ function App() {
 				<AddList
 				/>
 			</div>
-			{/* <div className="todo__tasks">
+			<div className="todo__tasks">
 				<Routes >
 					<Route path='/' element=
 						{lists &&
 							lists.map(list => (
 								<Tasks
-									key={list.id}
+									key={list._id}
 									list={list}
 									onUpdateLists={setIsListsChanged}
 									withoutEmpty={true} />
@@ -125,12 +97,12 @@ function App() {
 						{lists && selectedListId &&
 							<Tasks
 								key={0}
-								list={lists.find(i => i.id === selectedListId) || null}
+								list={lists.find(i => i._id === selectedListId) || null}
 								onUpdateLists={setIsListsChanged}
 								withoutEmpty={false} />}
 					/>
 				</Routes>
-			</div> */}
+			</div>
 		</div>
 	);
 }

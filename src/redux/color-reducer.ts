@@ -10,8 +10,8 @@ export const ADD_COLORS = 'ADD_COLORS'
 
 export type ColorType = {
 	colorId: number
-	hex: string | null
-	name: string | null
+	hex: string
+	name: string
 }
 
 // Массив цветов

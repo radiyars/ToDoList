@@ -13,15 +13,15 @@ export const DELETE_LIST = 'DELETE_LIST'
 
 // Задачи
 export type TaskType = {
-	_id: string | null
-	text: string | null
-	completed: boolean | null
+	_id: string
+	text: string
+	completed: boolean
 }
 
 // Листы с задачами
 export type ListType = {
-	_id: string | null
-	name: string | null
+	_id: string
+	name: string
 	color: ColorType
 	tasks: Array<TaskType>
 }

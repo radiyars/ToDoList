@@ -27,10 +27,8 @@ const List = (props: PropsType) => {
 
 	let navigate = useNavigate()
 
-
 	//  Удаляем лист из списка
 	const removeList = async (id: string | null) => {
-
 		if (id) {
 			await deleteList(id)
 			navigate('/')
