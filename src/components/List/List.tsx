@@ -2,9 +2,9 @@ import classNames from "classnames"
 import { useNavigate } from 'react-router-dom'
 import { ReactComponent as RemoveSvg } from "../../assets/img/close.svg"
 import { useActions } from '../../hooks/useAction'
-import { ListType } from '../../redux/lists-reducer'
 import Badge from "../Badge/Badge"
 import styles from "./List.module.scss"
+import { ListType } from "../../types/types"
 
 
 
@@ -17,7 +17,6 @@ type PropsType = {
 	active: boolean
 	onClick: () => void
 	onClickItem: (item: string | null) => void
-	onUpdateLists: (bool: boolean) => void
 }
 
 

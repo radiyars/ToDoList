@@ -1,5 +1,6 @@
 import { Dispatch } from 'react'
 import { colorsAPI } from '../api/colors-api'
+import { ColorType } from '../types/types'
 
 //	Actions CONST	---------------------------------------------------------------------------
 
@@ -8,11 +9,6 @@ export const ADD_COLORS = 'ADD_COLORS'
 
 //	Initial State & i'ts type	---------------------------------------------------------------
 
-export type ColorType = {
-	colorId: number
-	hex: string
-	name: string
-}
 
 // Массив цветов
 const initialState: Array<ColorType> = [
@@ -59,7 +55,7 @@ export function getColors() {
 			let data = await colorsAPI.getColors()
 			dispatch(addColors(data))
 		} catch (err) {
-			alert(`Ошибка при загрузке списка цветов! ${err}`)
+			alert(`Не удалось загрузить список цветов! ${err}`)
 		}
 	}
 }

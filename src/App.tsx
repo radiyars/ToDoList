@@ -1,19 +1,15 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import listSvg from './assets/img/list2.svg';
-import AddList from './components/AddList/AddList';
-import List from './components/List/List';
-// import { ListType } from './redux';
-import Tasks from './components/Tasks/Tasks';
-import { useTypedSelector } from './hooks/useTypedSelector';
-import { useActions } from './hooks/useAction';
-import { ColorType } from './redux/color-reducer';
+import { useEffect, useState } from 'react'
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom"
+import listSvg from './assets/img/list2.svg'
+import AddList from './components/AddList/AddList'
+import List from './components/List/List'
+import Tasks from './components/Tasks/Tasks'
+import { useActions } from './hooks/useAction'
+import { useTypedSelector } from './hooks/useTypedSelector'
 
 
 function App() {
 
-	const [isListsChanged, setIsListsChanged] = useState(false)  // Новый список листов
 	const [selectedListId, setSelectedListId] = useState<string | null>(null) // Выбранный лист
 	const [active, setActive] = useState(false) // Активный пункт sidebar "Все" или нет
 	let navigate = useNavigate()
@@ -30,17 +26,17 @@ function App() {
 	}, [])
 
 
-	// // Определяем выбранный лист
-	// let pathname = useLocation().pathname;
-	// useEffect(() => {
-	// 	let listId = pathname.split('lists/')[1]
-	// 	if (listId) {
-	// 		setSelectedListId(+listId)
-	// 	} else if (pathname === '/') {
-	// 		setActive(true)
+	// Определяем выбранный лист
+	let pathname = useLocation().pathname;
+	useEffect(() => {
+		let listId = pathname.split('lists/')[1]
+		if (listId) {
+			setSelectedListId(listId)
+		} else if (pathname === '/') {
+			setActive(true)
 
-	// 	}
-	// }, [pathname, lists])
+		}
+	}, [pathname, lists])
 
 
 	// Делаем выбранный лист активным
@@ -63,7 +59,6 @@ function App() {
 					active={active}
 					onClick={() => { setActive(true) }}
 					onClickItem={(id) => { navigate(`/`) }}
-					onUpdateLists={() => { }}
 				/>
 				{lists &&
 					<List
@@ -73,11 +68,9 @@ function App() {
 						active={active}
 						onClick={() => { }}
 						onClickItem={chooseActive}
-						onUpdateLists={setIsListsChanged}
 					/>
 				}
-				<AddList
-				/>
+				<AddList />
 			</div>
 			<div className="todo__tasks">
 				<Routes >
@@ -87,7 +80,6 @@ function App() {
 								<Tasks
 									key={list._id}
 									list={list}
-									onUpdateLists={setIsListsChanged}
 									withoutEmpty={true} />
 							))
 						}
@@ -98,7 +90,6 @@ function App() {
 							<Tasks
 								key={0}
 								list={lists.find(i => i._id === selectedListId) || null}
-								onUpdateLists={setIsListsChanged}
 								withoutEmpty={false} />}
 					/>
 				</Routes>

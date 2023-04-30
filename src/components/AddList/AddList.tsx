@@ -22,7 +22,6 @@ const AddList = (props: PropsType) => {
 				active={false}
 				onClick={() => setVisibleAddListForm(true)}
 				onClickItem={() => { }}
-				onUpdateLists={() => { }}
 			/>
 
 			{visibleAddListForm &&

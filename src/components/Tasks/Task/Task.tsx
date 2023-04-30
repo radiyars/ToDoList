@@ -1,45 +1,41 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { ReactComponent as CheckSvg } from '../../../assets/img/check.svg';
-import { ReactComponent as CloseSvg } from '../../../assets/img/close.svg';
-import { TaskType } from '../../../redux/lists-reducer';
-import styles from './Task.module.scss';
+import { useState } from 'react'
+import { ReactComponent as CheckSvg } from '../../../assets/img/check.svg'
+import { ReactComponent as CloseSvg } from '../../../assets/img/close.svg'
+import { useActions } from '../../../hooks/useAction'
+import styles from './Task.module.scss'
+import { ListType, TaskType } from '../../../types/types'
 
 
 type PropsType = {
+	list: ListType | null
 	task: TaskType | null
-	onUpdateLists: (bool: boolean) => void
+	index: number
 }
 
 const Task = (props: PropsType) => {
 
 	const [editTaskMode, setEditTaskMode] = useState(false)
-	const [newTaskName, setNewTaskName] = useState('')
+	const [newTaskText, setNewTaskText] = useState('')
 	const [checked, setChecked] = useState(false)
 
+	const { patchListsTasks } = useActions()
 
-	// Обновляем название задачи
-	useEffect(() => {
-		if (props.task) {
-			setNewTaskName(props.task.text)
-			setChecked(props.task.completed)
-		}
-	}, [props.task])
+
+	// useEffect(() => {
+	// 	if (props.task) {
+	// 		setNewTaskText(props.task.text)
+	// 		setChecked(props.task.completed)
+	// 	}
+	// }, [props.task])
 
 
 	// Меняем название задачи
 	const EditTaskName = () => {
 		setEditTaskMode(false)
-		if (newTaskName) {
-			if (props.task) {
-				axios
-					.patch('http://localhost:3001/tasks/' + props.task._id, {
-						text: newTaskName
-					})
-					.then(() => {
-						props.onUpdateLists(true)
-					})
-					.catch(() => { alert('Не удалось изменить название задачи!') })
+		if (newTaskText) {
+			if (props.task && props.list) {
+				props.list.tasks[props.index].text = newTaskText
+				patchListsTasks(props.list._id, props.list.tasks)
 			}
 		}
 	}
@@ -47,34 +43,18 @@ const Task = (props: PropsType) => {
 
 	// Удаляем задачу
 	const RemoveTask = () => {
-		if (props.task) {
-			axios
-				.delete('http://localhost:3001/tasks/' + props.task._id)
-				.then(() => {
-					props.onUpdateLists(true)
-
-				})
-				.catch(() => {
-					alert('Не удалось удалить задачу!')
-				})
+		if (props.task && props.list) {
+			props.list.tasks.splice(props.index, 1)
+			patchListsTasks(props.list._id, props.list.tasks)
 		}
 	}
 
 
 	// Выполняем задачу (checkbox)
 	const onChecked = () => {
-		if (props.task) {
-			axios
-				.patch('http://localhost:3001/tasks/' + props.task._id, {
-					completed: !checked
-				})
-				.then(() => {
-					props.onUpdateLists(true)
-					console.log('update!');
-				})
-				.catch(() => {
-					alert('Не удалось выполнить задачу!')
-				})
+		if (props.task && props.list) {
+			props.list.tasks[props.index].completed = !props.list.tasks[props.index].completed
+			patchListsTasks(props.list._id, props.list.tasks)
 		}
 	}
 
@@ -103,9 +83,9 @@ const Task = (props: PropsType) => {
 			{editTaskMode &&
 				<input
 					autoFocus={true}
-					value={newTaskName}
+					value={newTaskText}
 					placeholder="Название задачи"
-					onChange={(e) => setNewTaskName(e.target.value)}
+					onChange={(e) => setNewTaskText(e.target.value)}
 					onBlur={EditTaskName}
 					className={styles.task__form} />
 			}

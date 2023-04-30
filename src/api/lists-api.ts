@@ -1,5 +1,4 @@
-import { ColorType } from "../redux/color-reducer"
-import { ListType } from "../redux/lists-reducer"
+import { ColorType, ListType, TaskType } from '../types/types';
 import { instance } from './api'
 
 
@@ -17,9 +16,19 @@ export const listsAPI = {
 
 	deleteList(id: string) {
 		return instance.delete<ListType>(`/lists/${id}`)
+			// ! нужен ли then???
 			.then(response => response.data);
 	},
 
+	renameList(id: string, name: string) {
+		return instance.patch<ListType>(`/lists/${id}`, { name })
+			.then(response => response.data);
+	},
+
+	patchListsTasks(id: string, tasks: Array<TaskType>) {
+		return instance.patch<ListType>(`/lists/${id}`, { tasks })
+			.then(response => response.data);
+	}
 
 }
 

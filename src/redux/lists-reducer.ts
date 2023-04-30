@@ -1,30 +1,18 @@
 
 import { Dispatch } from 'react'
 import { listsAPI } from '../api/lists-api'
-import { ColorType } from './color-reducer'
+import { ColorType, ListType, TaskType } from '../types/types'
 
 //	Actions CONST	---------------------------------------------------------------------------
 export const ADD_LISTS = 'ADD_LISTS'
 export const ADD_LIST = 'ADD_LIST'
 export const DELETE_LIST = 'DELETE_LIST'
+export const RENAME_LIST = 'RENAME_LIST'
+export const PARCH_LISTS_TASKS = 'PARCH_LISTS_TASKS'
 
 
 //	Initial State & i'ts type	---------------------------------------------------------------
 
-// Задачи
-export type TaskType = {
-	_id: string
-	text: string
-	completed: boolean
-}
-
-// Листы с задачами
-export type ListType = {
-	_id: string
-	name: string
-	color: ColorType
-	tasks: Array<TaskType>
-}
 
 const initialState: Array<ListType> = [
 	{
@@ -57,8 +45,23 @@ export const listsReducer = (state = initialState, action: AppActionsTypes): Ini
 			return [...state, action.list]
 
 		case DELETE_LIST:
-			return state.filter(({ _id }) => _id !== action.id);
+			return state.filter(({ _id }) => _id !== action.id)
 
+		case RENAME_LIST:
+			let list = state.find(list => list._id === action.id)
+			if (list) {
+				list.name = action.name
+			}
+			return [...state]
+
+		case PARCH_LISTS_TASKS:
+			{
+				let list = state.find(list => list._id === action.id)
+				if (list) {
+					list.tasks = [...action.tasks]
+				}
+				return [...state]
+			}
 		default:
 			return state;
 	}
@@ -66,7 +69,7 @@ export const listsReducer = (state = initialState, action: AppActionsTypes): Ini
 
 //	Actions	-----------------------------------------------------------------------------------
 
-export type AppActionsTypes = AddListsType | AddListType | DelListType
+export type AppActionsTypes = AddListsType | AddListType | DelListType | RenListType | PatListsTasksType
 
 
 type AddListsType = {
@@ -90,6 +93,22 @@ type DelListType = {
 export const delList = (id: string): DelListType => ({ type: DELETE_LIST, id })
 
 
+type RenListType = {
+	type: typeof RENAME_LIST
+	id: string
+	name: string
+}
+export const renList = (id: string, name: string): RenListType => ({ type: RENAME_LIST, id, name })
+
+
+type PatListsTasksType = {
+	type: typeof PARCH_LISTS_TASKS
+	id: string
+	tasks: Array<TaskType>
+}
+export const patListsTasks = (id: string, tasks: Array<TaskType>): PatListsTasksType => ({ type: PARCH_LISTS_TASKS, id, tasks })
+
+
 //	Thunks	------------------------------------------------------------------------------------
 
 export function getLists() {
@@ -99,7 +118,7 @@ export function getLists() {
 			let data = await listsAPI.getLists()
 			dispatch(addLists(data))
 		} catch (err) {
-			alert(`Ошибка при загрузке списка задач! ${err}`)
+			alert(`Не удалось загрузить списки задач! ${err}`)
 		}
 	}
 }
@@ -108,10 +127,11 @@ export function getLists() {
 export function postList(name: string, color: ColorType) {
 	return async (dispatch: Dispatch<AppActionsTypes>) => {
 		try {
+			// ! поправить доабку поста
 			let data = await listsAPI.postList(name, color)
 			dispatch(addList(data))
 		} catch (err) {
-			alert(`Ошибка при добавлении списка задач! ${err}`)
+			alert(`Не удалось добавить список задач! ${err}`)
 		}
 	}
 }
@@ -120,13 +140,43 @@ export function postList(name: string, color: ColorType) {
 export function deleteList(id: string) {
 	return async (dispatch: Dispatch<AppActionsTypes>) => {
 		try {
-			let data = await listsAPI.deleteList(id)
+			await listsAPI.deleteList(id)
 			dispatch(delList(id))
 		} catch (err) {
-			alert(`Ошибка при удалении списка задач! ${err}`)
+			alert(`Не удалось удалить список задач! ${err}`)
 		}
 	}
 }
 
 
-export const listsActions = { addLists, getLists, postList, deleteList }
+export function renameList(id: string, name: string) {
+	return async (dispatch: Dispatch<AppActionsTypes>) => {
+		try {
+			await listsAPI.renameList(id, name)
+			dispatch(renList(id, name))
+		} catch (err) {
+			alert(`Не удалось изменить название списка задач! ${err}`)
+		}
+	}
+}
+
+
+export function patchListsTasks(id: string, tasks: Array<TaskType>) {
+	return async (dispatch: Dispatch<AppActionsTypes>) => {
+		try {
+			await listsAPI.patchListsTasks(id, tasks)
+			dispatch(patListsTasks(id, tasks))
+		} catch (err) {
+			alert(`Не удалось обновить список задач! ${err}`)
+		}
+	}
+}
+
+export const listsActions = {
+	addLists,
+	getLists,
+	postList,
+	deleteList,
+	renameList,
+	patchListsTasks
+}

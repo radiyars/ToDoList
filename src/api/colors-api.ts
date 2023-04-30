@@ -1,4 +1,4 @@
-import { ColorType } from '../redux/color-reducer'
+import { ColorType } from '../types/types';
 import { instance } from './api'
 
 

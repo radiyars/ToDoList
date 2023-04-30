@@ -1,13 +1,12 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { ReactComponent as AddSvg } from '../../../assets/img/add.svg';
-import { ListType } from '../../../redux/lists-reducer';
-import styles from './AddTask.module.scss';
+import { useEffect, useState } from 'react'
+import { ReactComponent as AddSvg } from '../../../assets/img/add.svg'
+import { useActions } from '../../../hooks/useAction'
+import styles from './AddTask.module.scss'
+import { ListType } from '../../../types/types'
 
 
 type PropsType = {
 	list: ListType | null
-	onUpdateLists: (bool: boolean) => void
 }
 
 const AddTask = (props: PropsType) => {
@@ -15,6 +14,8 @@ const AddTask = (props: PropsType) => {
 	const [hiddenAddTaskForm, setHiddenAddTaskForm] = useState(true)
 	const [inputValue, setInputValue] = useState('')
 	const [isLoading, setIsLoading] = useState(false) // ожидание завершения запроса
+
+	const { patchListsTasks } = useActions()
 
 
 	// Прячем форму создания новой задачи
@@ -28,34 +29,25 @@ const AddTask = (props: PropsType) => {
 	}
 
 	// Добавляем новую задачу
-	const AddTask = () => {
+	const AddTask = async () => {
 		if (!inputValue) {
-			alert('Введите название списка!')
+			alert('Введите название задачи!')
 			return
 		}
+
 		if (props.list) {
 			setIsLoading(true)
-			axios
-				.post('http://localhost:3001/tasks/',
-					{
-						'listId': props.list._id,
-						'text': inputValue,
-						'completed': false
-					}
-				)
-				.then(() => {
-					toggleFormVisible()
-					props.onUpdateLists(true)
-
-				})
-				.catch(() => {
-					alert('Ошибка при добавлении задачи!')
-				})
-				.finally(() => {
-					setIsLoading(false)
-				})
+			await patchListsTasks(props.list._id,
+				[...props.list.tasks, {
+					'text': inputValue,
+					'completed': false
+				}]
+			)
+			setIsLoading(false)
+			toggleFormVisible()
 		}
 	}
+
 
 
 	return (
