@@ -35,11 +35,11 @@ const ListName = (props: PropsType) => {
 
 
 	return (
-		<div className='list'>
+		<div className={styles.list}>
 
 			{!editMode &&
 
-				< span className={styles.list__name} style={{ color: props.list ? props.list.color.hex : 'black' }} onClick={() => setEditMode(true)} >
+				< span className={styles.list__name} style={{ color: props.list && props.list.color ? props.list.color.hex : 'black' }} onClick={() => setEditMode(true)} >
 					{props.list && props.list.name}
 				</span >
 			}
@@ -51,7 +51,9 @@ const ListName = (props: PropsType) => {
 					value={newListName ? newListName : ''}
 					placeholder="Название списка"
 					onChange={(e) => setNewListName(e.target.value)}
-					onBlur={EditListName} />
+					onBlur={EditListName}
+					style={{ color: props.list && props.list.color ? props.list.color.hex : 'black' }}
+				/>
 			}
 		</div>
 	)

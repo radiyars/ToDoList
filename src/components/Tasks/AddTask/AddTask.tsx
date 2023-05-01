@@ -35,7 +35,7 @@ const AddTask = (props: PropsType) => {
 			return
 		}
 
-		if (props.list) {
+		if (props.list && props.list.tasks) {
 			setIsLoading(true)
 			await patchListsTasks(props.list._id,
 				[...props.list.tasks, {

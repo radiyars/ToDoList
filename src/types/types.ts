@@ -2,9 +2,10 @@
 export type ListType = {
 	_id: string
 	name: string
-	color: ColorType
-	tasks: Array<TaskType>
+	color: ColorType | null
+	tasks: Array<TaskType> | null
 }
+
 
 // Задача
 export type TaskType = {
@@ -12,6 +13,7 @@ export type TaskType = {
 	text: string
 	completed: boolean
 }
+
 
 // Цвет списка задач
 export type ColorType = {

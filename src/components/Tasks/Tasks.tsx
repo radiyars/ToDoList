@@ -19,9 +19,9 @@ const Tasks = (props: PropsType) => {
 			<ListName list={props.list} />
 
 			<div className={styles.tasks__items}>
-				{!props.withoutEmpty && props.list && !props.list.tasks.length &&
+				{!props.withoutEmpty && props.list && !props.list.tasks &&
 					<h2>Задачи отсутствуют</h2>}
-				{props.list &&
+				{props.list && props.list.tasks &&
 					props.list.tasks.map(
 						(task, index) => (
 							<Task key={index} task={task} index={index} list={props.list} />

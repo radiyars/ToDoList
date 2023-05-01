@@ -13,21 +13,12 @@ export const PARCH_LISTS_TASKS = 'PARCH_LISTS_TASKS'
 
 //	Initial State & i'ts type	---------------------------------------------------------------
 
-
 const initialState: Array<ListType> = [
 	{
 		_id: '',
 		name: '',
-		color: {
-			colorId: 0,
-			hex: '',
-			name: '',
-		},
-		tasks: [{
-			_id: '',
-			text: '',
-			completed: false
-		}]
+		color: null,
+		tasks: null
 	}
 ]
 
@@ -127,9 +118,8 @@ export function getLists() {
 export function postList(name: string, color: ColorType) {
 	return async (dispatch: Dispatch<AppActionsTypes>) => {
 		try {
-			// ! поправить доабку поста
-			let data = await listsAPI.postList(name, color)
-			dispatch(addList(data))
+			await listsAPI.postList(name, color)
+			dispatch(addList({ name, color, tasks: null } as ListType))
 		} catch (err) {
 			alert(`Не удалось добавить список задач! ${err}`)
 		}

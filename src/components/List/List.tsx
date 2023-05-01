@@ -37,23 +37,23 @@ const List = (props: PropsType) => {
 
 	return (
 		< ul className={styles.list} onClick={props.onClick}>
-			{!!props.lists ? props.lists.map((item, index) => {
-				return (
-					<li key={index}
-						onClick={() => props.onClickItem(item._id)}
-						className={classNames({ [styles.active]: props.active ? '' : props.selectedListId === item._id })}>
-						<i>
-							{<div className={styles.list__badge}>
-								<Badge onClick={() => { }} color={!!item.color ? item.color.hex : ''} className='' />
-							</div>}
-						</i>
-						<span>{item.name}{item.tasks.length > 0 && ` (${item.tasks.length})`}</span>
-						{props.isRemovableItem && <RemoveSvg className={styles.list__remove} onClick={() => { removeList(item._id) }} />}
-					</li>
-				)
-			}
-			) :
-				<li onClick={() => props.onClickItem('')}
+			{!!props.lists
+				? props.lists.map((item, index) => {
+					return (
+						<li key={index}
+							onClick={() => props.onClickItem(item._id)}
+							className={classNames({ [styles.active]: props.active ? '' : props.selectedListId === item._id })}>
+							<i>
+								{<div className={styles.list__badge}>
+									<Badge onClick={() => { }} color={!!item.color ? item.color.hex : ''} className='' />
+								</div>}
+							</i>
+							<span>{item.name}{item.tasks && item.tasks.length > 0 && ` (${item.tasks.length})`}</span>
+							{props.isRemovableItem && <RemoveSvg className={styles.list__remove} onClick={() => { removeList(item._id) }} />}
+						</li>
+					)
+				})
+				: <li onClick={() => props.onClickItem('')}
 					className={props.active ? styles.active : ''}>
 					<i>	{<img src={props.img} alt='Список'></img>}</i>
 					<span>{props.title}</span>

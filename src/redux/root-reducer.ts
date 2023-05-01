@@ -1,8 +1,8 @@
-import { applyMiddleware, combineReducers, legacy_createStore as createStore } from "redux";
-import { composeWithDevTools } from 'redux-devtools-extension';
-import thunk from "redux-thunk";
-import { listsReducer } from "./lists-reducer";
-import { colorsReducer } from "./color-reducer";
+import { applyMiddleware, combineReducers, legacy_createStore as createStore } from "redux"
+import { composeWithDevTools } from 'redux-devtools-extension'
+import thunk from "redux-thunk"
+import { listsReducer } from "./lists-reducer"
+import { colorsReducer } from "./color-reducer"
 
 
 export const rootReducer = combineReducers({
