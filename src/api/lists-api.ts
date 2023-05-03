@@ -11,6 +11,8 @@ export const listsAPI = {
 
 	postList(name: string, color: ColorType) {
 		return instance.post<ListType>(`/lists`, { name, color })
+			.then(response => response.data);
+
 	},
 
 	deleteList(id: string) {

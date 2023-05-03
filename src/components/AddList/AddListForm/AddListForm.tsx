@@ -7,6 +7,7 @@ import styles from './AddListForm.module.scss'
 
 
 type PropsType = {
+	setListsChanged: (listsChanged: boolean) => void
 	setVisibleAddListForm: (visibleAddListForm: boolean) => void
 }
 
@@ -36,6 +37,7 @@ const AddListForm = (props: PropsType) => {
 		}
 		setIsLoading(true)
 		await postList(inputValue, colors[selectedColor - 1])
+		props.setListsChanged(true)
 		setIsLoading(false)
 		onClose()
 	}

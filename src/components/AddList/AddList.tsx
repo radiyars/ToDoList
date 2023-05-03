@@ -6,6 +6,7 @@ import AddListForm from './AddListForm/AddListForm'
 
 
 type PropsType = {
+	setListsChanged: (listsChanged: boolean) => void
 }
 
 const AddList = (props: PropsType) => {
@@ -26,6 +27,7 @@ const AddList = (props: PropsType) => {
 
 			{visibleAddListForm &&
 				<AddListForm
+					setListsChanged={props.setListsChanged}
 					setVisibleAddListForm={setVisibleAddListForm}
 				/>}
 		</div >

@@ -17,6 +17,7 @@ type PropsType = {
 	active: boolean
 	onClick: () => void
 	onClickItem: (item: string | null) => void
+	setListsChanged?: (listDeleted: boolean) => void
 }
 
 
@@ -30,7 +31,10 @@ const List = (props: PropsType) => {
 	const removeList = async (id: string | null) => {
 		if (id) {
 			await deleteList(id)
-			navigate('/')
+			// navigate('/')
+			if (props.setListsChanged) {
+				props.setListsChanged(true)
+			}
 		}
 	}
 

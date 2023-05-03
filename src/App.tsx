@@ -12,6 +12,8 @@ function App() {
 
 	const [selectedListId, setSelectedListId] = useState<string | null>(null) // Выбранный лист
 	const [active, setActive] = useState(false) // Активный пункт sidebar "Все" или нет
+	const [listsChanged, setListsChanged] = useState(false)
+
 	let navigate = useNavigate()
 
 
@@ -24,6 +26,21 @@ function App() {
 		getLists()
 		getColors()
 	}, [])
+
+
+	// Редирект при удалении листа
+	useEffect(() => {
+		if (listsChanged) {
+			if (lists.length) {
+				chooseActive(lists[lists.length - 1]._id)
+			}
+			else {
+				navigate('/')
+			}
+			setListsChanged(false)
+		}
+	}, [listsChanged])
+
 
 
 	// Определяем выбранный лист
@@ -68,9 +85,10 @@ function App() {
 						active={active}
 						onClick={() => { }}
 						onClickItem={chooseActive}
+						setListsChanged={setListsChanged}
 					/>
 				}
-				<AddList />
+				<AddList setListsChanged={setListsChanged} />
 			</div>
 			<div className="todo__tasks">
 				<Routes >

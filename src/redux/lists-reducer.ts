@@ -118,8 +118,8 @@ export function getLists() {
 export function postList(name: string, color: ColorType) {
 	return async (dispatch: Dispatch<AppActionsTypes>) => {
 		try {
-			await listsAPI.postList(name, color)
-			dispatch(addList({ name, color, tasks: null } as ListType))
+			let data = await listsAPI.postList(name, color)
+			dispatch(addList(data))
 		} catch (err) {
 			alert(`Не удалось добавить список задач! ${err}`)
 		}
