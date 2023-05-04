@@ -16,6 +16,7 @@ const Task = (props: PropsType) => {
 
 	const [editTaskMode, setEditTaskMode] = useState(false)
 	const [newTaskText, setNewTaskText] = useState('')
+	const [checked, setChecked] = useState(false)
 
 	const { patchListsTasks } = useActions()
 
@@ -54,9 +55,21 @@ const Task = (props: PropsType) => {
 	// Выполняем задачу (checkbox)
 	const onChecked = () => {
 		if (props.task && props.list && props.list.tasks) {
+			setChecked(!checked)
+			// debugger
+			// props.task.completed = checked
+			// debugger
+			// let current = props.list.tasks.find(task => task._id)
 			let tasks = [...props.list.tasks]
+			// @ts-ignore
 			tasks[props.index].completed = !tasks[props.index].completed
+			debugger
 			patchListsTasks(props.list._id, tasks)
+
+			// let tasks = [...props.list.tasks]
+			// tasks[props.index].completed = !tasks[props.index].completed
+			// debugger
+			// patchListsTasks(props.list._id, tasks)
 		}
 	}
 

@@ -47,8 +47,9 @@ export const listsReducer = (state = initialState, action: AppActionsTypes): Ini
 
 		case PARCH_LISTS_TASKS:
 			{
-				let list = state.find(list => list._id === action.id)
+				let list = state.find(list => list._id === action.listId)
 				if (list) {
+					debugger
 					list.tasks = [...action.tasks]
 				}
 				return [...state]
@@ -94,10 +95,10 @@ export const renList = (id: string, name: string): RenListType => ({ type: RENAM
 
 type PatListsTasksType = {
 	type: typeof PARCH_LISTS_TASKS
-	id: string
+	listId: string
 	tasks: Array<TaskType>
 }
-export const patListsTasks = (id: string, tasks: Array<TaskType>): PatListsTasksType => ({ type: PARCH_LISTS_TASKS, id, tasks })
+export const patListsTasks = (listId: string, tasks: Array<TaskType>): PatListsTasksType => ({ type: PARCH_LISTS_TASKS, listId, tasks })
 
 
 //	Thunks	------------------------------------------------------------------------------------
@@ -151,11 +152,11 @@ export function renameList(id: string, name: string) {
 }
 
 
-export function patchListsTasks(id: string, tasks: Array<TaskType>) {
+export function patchListsTasks(listId: string, tasks: Array<TaskType>) {
 	return async (dispatch: Dispatch<AppActionsTypes>) => {
 		try {
-			await listsAPI.patchListsTasks(id, tasks)
-			dispatch(patListsTasks(id, tasks))
+			listsAPI.patchListsTasks(listId, tasks)
+			dispatch(patListsTasks(listId, tasks))
 		} catch (err) {
 			alert(`Не удалось обновить список задач! ${err}`)
 		}

@@ -23,8 +23,8 @@ export const listsAPI = {
 		return instance.patch<ListType>(`/lists/${id}`, { name })
 	},
 
-	patchListsTasks(id: string, tasks: Array<TaskType>) {
-		return instance.patch<ListType>(`/lists/${id}`, { tasks })
+	patchListsTasks(listId: string, tasks: Array<TaskType>) {
+		return instance.patch<ListType>(`/lists/${listId}`, { tasks })
 	}
 
 }

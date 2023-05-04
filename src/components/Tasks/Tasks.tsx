@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { ListType } from '../../types/types'
 import AddTask from './AddTask/AddTask'
 import ListName from './ListName/ListName'
@@ -12,6 +13,12 @@ type PropsType = {
 
 const Tasks = (props: PropsType) => {
 
+	// useEffect(() => {
+	// 	console.log('q');
+
+	// }, [props.list])
+	console.log('q');
+
 	return (
 
 		<div className={styles.tasks}>
@@ -21,6 +28,7 @@ const Tasks = (props: PropsType) => {
 			<div className={styles.tasks__items}>
 				{!props.withoutEmpty && props.list && !props.list.tasks &&
 					<h2>Задачи отсутствуют</h2>}
+
 				{props.list && props.list.tasks &&
 					props.list.tasks.map(
 						(task, index) => (
