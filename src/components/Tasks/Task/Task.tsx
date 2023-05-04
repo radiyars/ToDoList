@@ -16,7 +16,6 @@ const Task = (props: PropsType) => {
 
 	const [editTaskMode, setEditTaskMode] = useState(false)
 	const [newTaskText, setNewTaskText] = useState('')
-	const [checked, setChecked] = useState(false)
 
 	const { patchListsTasks } = useActions()
 
@@ -24,13 +23,12 @@ const Task = (props: PropsType) => {
 	useEffect(() => {
 		if (props.task) {
 			setNewTaskText(props.task.text)
-			// setChecked(props.task.completed)
 		}
 	}, [props.task])
 
 
 	// Меняем название задачи
-	const EditTaskName = () => {
+	const editTaskName = () => {
 		setEditTaskMode(false)
 		if (newTaskText) {
 			if (props.task && props.list && props.list.tasks) {
@@ -43,7 +41,7 @@ const Task = (props: PropsType) => {
 
 
 	// Удаляем задачу
-	const RemoveTask = () => {
+	const removeTask = () => {
 		if (props.task && props.list && props.list.tasks) {
 			let tasks = [...props.list.tasks]
 			tasks.splice(props.index, 1)
@@ -53,23 +51,11 @@ const Task = (props: PropsType) => {
 
 
 	// Выполняем задачу (checkbox)
-	const onChecked = () => {
+	const check = () => {
 		if (props.task && props.list && props.list.tasks) {
-			setChecked(!checked)
-			// debugger
-			// props.task.completed = checked
-			// debugger
-			// let current = props.list.tasks.find(task => task._id)
 			let tasks = [...props.list.tasks]
-			// @ts-ignore
-			tasks[props.index].completed = !tasks[props.index].completed
-			debugger
+			tasks[props.index].completed = !props.task.completed
 			patchListsTasks(props.list._id, tasks)
-
-			// let tasks = [...props.list.tasks]
-			// tasks[props.index].completed = !tasks[props.index].completed
-			// debugger
-			// patchListsTasks(props.list._id, tasks)
 		}
 	}
 
@@ -79,11 +65,13 @@ const Task = (props: PropsType) => {
 			{props.task &&
 				<div className={styles.task__checkbox}>
 					<input
-						id={`task-${props.task._id}`}
+						id={`task-${props.index}`}
+						// id={`task-${props.task._id}`}
 						type='checkbox'
 						checked={props.task.completed}
-						onChange={onChecked} />
-					<label htmlFor={`task-${props.task._id}`}>
+						onChange={check} />
+					{/* <label htmlFor={`task-${props.task._id}`}> */}
+					<label htmlFor={`task-${props.index}`}>
 						<CheckSvg className={styles.checkSvg} />
 					</label>
 				</div>}
@@ -101,11 +89,11 @@ const Task = (props: PropsType) => {
 					value={newTaskText}
 					placeholder="Название задачи"
 					onChange={(e) => setNewTaskText(e.target.value)}
-					onBlur={EditTaskName}
+					onBlur={editTaskName}
 					className={styles.task__form} />
 			}
 
-			<CloseSvg className={styles.task__closeSvg} onClick={RemoveTask} />
+			<CloseSvg className={styles.task__closeSvg} onClick={removeTask} />
 		</div>
 	)
 }

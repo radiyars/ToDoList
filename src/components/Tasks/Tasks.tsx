@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { ListType } from '../../types/types'
 import AddTask from './AddTask/AddTask'
 import ListName from './ListName/ListName'
@@ -12,12 +11,6 @@ type PropsType = {
 }
 
 const Tasks = (props: PropsType) => {
-
-	// useEffect(() => {
-	// 	console.log('q');
-
-	// }, [props.list])
-	console.log('q');
 
 	return (
 

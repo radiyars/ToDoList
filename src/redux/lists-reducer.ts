@@ -49,7 +49,6 @@ export const listsReducer = (state = initialState, action: AppActionsTypes): Ini
 			{
 				let list = state.find(list => list._id === action.listId)
 				if (list) {
-					debugger
 					list.tasks = [...action.tasks]
 				}
 				return [...state]
