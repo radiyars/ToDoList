@@ -13,6 +13,7 @@ function App() {
 	const [selectedListId, setSelectedListId] = useState<string | null>(null) // Выбранный лист
 	const [active, setActive] = useState(false) // Активный пункт sidebar "Все" или нет
 	const [listsChanged, setListsChanged] = useState(false)
+	const [menuActive, setMenuActive] = useState(false)
 
 	let navigate = useNavigate()
 
@@ -42,7 +43,6 @@ function App() {
 	}, [listsChanged])
 
 
-
 	// Определяем выбранный лист
 	let pathname = useLocation().pathname;
 	useEffect(() => {
@@ -63,55 +63,73 @@ function App() {
 		navigate(`/lists/${id}`)
 	}
 
+	let activeMenuStyle = menuActive ? 'active' : ''
 
 	return (
-		<div className="todo">
-			<div className="todo__sidebar">
-				<List
-					lists={null}
-					title='Все задачи'
-					img={listSvg}
-					isRemovableItem={false}
-					selectedListId={selectedListId}
-					active={active}
-					onClick={() => { setActive(true) }}
-					onClickItem={(id) => { navigate(`/`) }}
-				/>
-				{lists &&
-					<List
-						lists={lists}
-						isRemovableItem={true}
-						selectedListId={selectedListId}
-						active={active}
-						onClick={() => { }}
-						onClickItem={chooseActive}
-						setListsChanged={setListsChanged}
-					/>
-				}
-				<AddList setListsChanged={setListsChanged} />
-			</div>
-			<div className="todo__tasks">
-				<Routes >
-					<Route path='/' element=
-						{lists &&
-							lists.map(list => (
-								<Tasks
-									key={list._id}
-									list={list}
-									withoutEmpty={true} />
-							))
-						}
-					/>
+		<div className='container' style={{
+			display: 'flex',
+			alignItems: 'center',
+			justifyContent: 'center',
+			height: '100vh',
+		}}>
+			<div className={`todo ${activeMenuStyle}`} >
+				<div className={`todo__sidebar sidebar  ${activeMenuStyle}`}>
+					<div className={`sidebar__burger ${activeMenuStyle}`} onClick={() => { setMenuActive(!menuActive) }}>
+						<span></span>
+					</div>
 
-					<Route path='/lists/:id' element=
-						{lists && selectedListId &&
-							<Tasks
-								key={0}
-								list={lists.find(i => i._id === selectedListId) || null}
-								withoutEmpty={false} />}
-					/>
-				</Routes>
-			</div>
+					<div className={`sidebar__body ${menuActive ? 'active' : ''}`} >
+						<List
+							lists={null}
+							title='Все задачи'
+							img={listSvg}
+							isRemovableItem={false}
+							selectedListId={selectedListId}
+							active={active}
+							onClick={() => { setActive(true) }}
+							onClickItem={(id) => { navigate(`/`) }}
+						/>
+
+						{lists &&
+							<List
+								lists={lists}
+								isRemovableItem={true}
+								selectedListId={selectedListId}
+								active={active}
+								onClick={() => { }}
+								onClickItem={chooseActive}
+								setListsChanged={setListsChanged}
+							/>
+						}
+
+						<AddList setListsChanged={setListsChanged} />
+					</div>
+				</div>
+				<div className={`todo__tasks ${activeMenuStyle}`}>
+
+					<Routes >
+						<Route path='/' element=
+							{lists &&
+								lists.map(list => (
+									<Tasks
+										key={list._id}
+										list={list}
+										withoutEmpty={true} />
+								))
+							}
+						/>
+
+						<Route path='/lists/:id' element=
+							{lists && selectedListId &&
+								<Tasks
+									key={0}
+									list={lists.find(i => i._id === selectedListId) || null}
+									withoutEmpty={false} />}
+						/>
+					</Routes>
+
+				</div>
+			</div >
 		</div>
 	);
 }
