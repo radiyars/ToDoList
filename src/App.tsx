@@ -66,12 +66,13 @@ function App() {
 	let activeMenuStyle = menuActive ? 'active' : ''
 
 	return (
-		<div className='container' style={{
+		<div className='container' >
+			{/* <div className='container' style={{
 			display: 'flex',
 			alignItems: 'center',
 			justifyContent: 'center',
 			height: '100vh',
-		}}>
+		}}> */}
 			<div className={`todo ${activeMenuStyle}`} >
 				<div className={`todo__sidebar sidebar  ${activeMenuStyle}`}>
 					<div className={`sidebar__burger ${activeMenuStyle}`} onClick={() => { setMenuActive(!menuActive) }}>
