@@ -67,12 +67,6 @@ function App() {
 
 	return (
 		<div className='container' >
-			{/* <div className='container' style={{
-			display: 'flex',
-			alignItems: 'center',
-			justifyContent: 'center',
-			height: '100vh',
-		}}> */}
 			<div className={`todo ${activeMenuStyle}`} >
 				<div className={`todo__sidebar sidebar  ${activeMenuStyle}`}>
 					<div className={`sidebar__burger ${activeMenuStyle}`} onClick={() => { setMenuActive(!menuActive) }}>
