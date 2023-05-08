@@ -47,8 +47,8 @@ html, body{
 
 
 	&__tasks{
-		min-width: 749px;
-		flex:1 0 auto;
+		width: 749px;
+		flex: 0 1 auto;
 		padding: 60px;
 	}
 }
@@ -63,12 +63,23 @@ html, body{
 
 
 @media(max-width:768px){
+
+	.container{
+		padding: 0px;
+	}
+
+	.todo__tasks {
+		padding: 20px;
+	}
+
 	.sidebar__burger{
 		display: block;
 		position: relative;
 		width: 30px;
 		height: 20px;
+		margin: 10px 0;
 	}
+
 	.sidebar__burger span{
 		position: absolute;
 		background-color: #fff;
@@ -107,9 +118,9 @@ html, body{
 	}
 
 
-	.todo__tasks{
-		// padding-left: 90px;
-	}
+	// .todo__tasks{
+	// 	// padding-left: 90px;
+	// }
 
 	.todo__tasks.active{
 		padding-left: 31px;
