@@ -54,12 +54,9 @@ html, body{
 }
 
 
-
 .sidebar__burger{
 	display: none;
 }
-
-
 
 
 @media(max-width:768px){
@@ -68,16 +65,49 @@ html, body{
 		padding: 0px;
 	}
 
+// _todo
+	.todo{
+		height: 100vh;
+		margin: 1px auto;
+	}
+
+// sidebar
+	.todo__sidebar{
+		width: 40px;
+		padding: 20px 5px;
+	}
+	
+	.todo__sidebar.active{
+		width: 200px;
+	}
+
+	.sidebar__body{
+		display: none;
+	}
+
+	.sidebar__body.active{
+		display: block;
+	}
+	
+
+// tasks
 	.todo__tasks {
 		padding: 20px;
 	}
 
+	// .todo__tasks.active{
+	// 	padding-left: 31px;
+	// }
+
+
+
+// burger
 	.sidebar__burger{
 		display: block;
 		position: relative;
 		width: 30px;
 		height: 20px;
-		margin: 10px 0;
+		margin: 10px 0 29px 0;
 	}
 
 	.sidebar__burger span{
@@ -105,40 +135,6 @@ html, body{
 		bottom: 0;
 	}
 
-
-	.todo__sidebar{
-		width: 30px;
-	}
-	
-
-	.todo__sidebar.active{
-		// position: absolute;
-		// height: 100%;
-		width: 180px;
-	}
-
-
-	// .todo__tasks{
-	// 	// padding-left: 90px;
-	// }
-
-	.todo__tasks.active{
-		padding-left: 31px;
-		height: 100%;
-	}
-
-	.todo{
-		height: 100%;
-		margin: 1px auto;
-	}
-
-	.sidebar__body{
-		display: none;
-	}
-
-	.sidebar__body.active{
-		display: block;
-	}
 }
 
 
