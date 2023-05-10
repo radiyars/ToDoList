@@ -1,10 +1,9 @@
 import classNames from "classnames"
-import { useNavigate } from 'react-router-dom'
 import { ReactComponent as RemoveSvg } from "../../assets/img/close.svg"
 import { useActions } from '../../hooks/useAction'
+import { ListType } from "../../types/types"
 import Badge from "../Badge/Badge"
 import styles from "./List.module.scss"
-import { ListType } from "../../types/types"
 
 
 
@@ -25,7 +24,6 @@ const List = (props: PropsType) => {
 
 	const { deleteList } = useActions()
 
-	let navigate = useNavigate()
 
 	//  Удаляем лист из списка
 	const removeList = async (id: string | null) => {

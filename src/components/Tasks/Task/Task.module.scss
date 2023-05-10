@@ -83,8 +83,8 @@
 			.checkSvg{
 				opacity: 0;
 				position: relative;
-				left: 4px;
-				bottom: 1px;
+				left: 3	px;
+				bottom: 3px;
 				
 			}
 		}
@@ -96,7 +96,6 @@
 		color: #111111;
 		border: 0;
 		width: 100%;
-		
 		transition: background-color 0.2s ease-in-out;
 		
 		
@@ -107,7 +106,6 @@
 			text-decoration: line-through;
 		}
 	}
-
 
 	
 	&__closeSvg {

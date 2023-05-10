@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ReactComponent as AddSvg } from '../../../assets/img/add.svg'
 import { useActions } from '../../../hooks/useAction'
 import styles from './AddTask.module.scss'
@@ -14,6 +14,8 @@ const AddTask = (props: PropsType) => {
 	const [hiddenAddTaskForm, setHiddenAddTaskForm] = useState(true)
 	const [inputValue, setInputValue] = useState('')
 	const [isLoading, setIsLoading] = useState(false) // ожидание завершения запроса
+	const inputRef = useRef<HTMLInputElement>(null);
+
 
 	const { patchListsTasks } = useActions()
 
@@ -44,9 +46,14 @@ const AddTask = (props: PropsType) => {
 				}]
 			)
 			setIsLoading(false)
-			toggleFormVisible()
+			setInputValue('')
+			if (inputRef && inputRef.current) {
+				inputRef.current.focus()
+			}
+			// toggleFormVisible()
 		}
 	}
+
 
 
 
@@ -61,6 +68,8 @@ const AddTask = (props: PropsType) => {
 				:
 				<div className={styles.addTask__form}>
 					<input
+						ref={inputRef}
+						autoFocus
 						value={inputValue}
 						onChange={(e) => setInputValue(e.target.value)}
 						className={`field`}

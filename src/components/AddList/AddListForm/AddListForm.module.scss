@@ -9,7 +9,12 @@
 	box-sizing: border-box;
 	position: relative;
 	top: -35px;
-	left: 12px;
+	
+	@media(max-width:768px){
+		width: 90vw;
+		top: -50px;
+		padding: 10px;
+	}
 
 
 	&__closeSvg{
