@@ -61,9 +61,9 @@ function App() {
 		setSelectedListId(id)
 		setActive(false)
 		navigate(`/lists/${id}`)
-		if (menuActive) {
-			setMenuActive(false)
-		}
+		// if (menuActive) {
+		// 	setMenuActive(false)
+		// }
 	}
 
 	let activeMenuStyle = menuActive ? 'active' : ''

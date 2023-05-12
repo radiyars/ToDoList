@@ -8,6 +8,9 @@
 
 	&__name{
 		font-size: 32px;
+		@media(max-width:768px){
+			font-size: 28px;
+		}
 		line-height: 39px;
 		color: #111111;
 		font-weight: 700;

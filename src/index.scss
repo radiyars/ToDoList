@@ -75,10 +75,12 @@ html, body{
 	.todo__sidebar{
 		width: 40px;
 		padding: 20px 5px;
+		transition: all 0.3s ease 0s;
 	}
 	
 	.todo__sidebar.active{
-		width: 200px;
+		width: 250px;
+		transition: all 0.3s ease 0s;
 	}
 
 	.sidebar__body{
@@ -93,6 +95,10 @@ html, body{
 // tasks
 	.todo__tasks {
 		padding: 20px;
+	}
+
+	.todo__tasks.active{
+		pointer-events: none;
 	}
 
 	// .todo__tasks.active{
@@ -110,6 +116,18 @@ html, body{
 		margin: 10px 0 29px 0;
 	}
 
+	.sidebar__burger.active::before {
+		transform: rotate(45deg);
+		top: 9px;
+	}
+	.sidebar__burger.active::after {
+		transform: rotate(-45deg);
+		bottom: 9px;
+	}
+	.sidebar__burger.active span {
+		transform: scale(0);
+	}
+
 	.sidebar__burger span{
 		position: absolute;
 		background-color: #fff;
@@ -117,6 +135,7 @@ html, body{
 		width: 100%;
 		height: 2px;
 		top: 9px;
+		transition: all 0.3s ease 0s;
 	}
 
 	.sidebar__burger::before,
@@ -127,6 +146,7 @@ html, body{
 		width: 100%;
 		height: 2px;
 		left: 0;
+		transition: all 0.3s ease 0s;
 	}
 	.sidebar__burger::before{
 		top:0;

@@ -28,7 +28,6 @@
 		}
 
 		#{$self}__remove{
-			
 			width: 30px;
 			opacity: 0;
 			transition: opacity 0.2s ease-in-out;
@@ -75,6 +74,21 @@
 	border-radius: 4px;
 }
 
+@media(max-width:768px){
+	.active {
+		background-color: rgba(255,255,255,0.5);
+	}
+
+	.list {
+		$self: &;
+		li.active {
+			#{$self}__remove{
+				opacity: 0.7;
+			}
+		}
+	}	
+	
+}
 
 
 
